@@ -1,0 +1,42 @@
+# One-hour smoke test: H3 first/last-frame and LTX distilled, each preloaded before measurement.
+# Test frames were generated with an image model for this test (benchmark-assets/).
+name: smoke-1h
+assets:
+  first: ../benchmark-assets/first.png
+  last: ../benchmark-assets/last.png
+experiments:
+  - name: h3-fl2v-turbo4
+    type: h3.fl2v
+    params:
+      prompt: The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead, gentle harbour sounds.
+      first_frame: '@asset:first'
+      last_frame: '@asset:last'
+      duration_seconds: 5
+      turbo: 4-step
+    vary:
+      seed: [11, 12]
+  - name: h3-fl2v-base
+    type: h3.fl2v
+    params:
+      prompt: The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead, gentle harbour sounds.
+      first_frame: '@asset:first'
+      last_frame: '@asset:last'
+      duration_seconds: 5
+      turbo: none
+    vary:
+      seed: [11]
+  - name: ltx-t2v-distilled
+    type: ltx.t2v
+    params:
+      prompt: A fishing harbour in the Arabian Gulf at golden sunrise, wooden dhows rocking gently, a fisherman in a white thobe coils rope on the pier, gulls and soft waves.
+      frames: 121
+    vary:
+      seed: [11, 12]
+  - name: ltx-i2v-distilled
+    type: ltx.i2v
+    params:
+      prompt: The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead.
+      keyframes: [{upload_id: '@asset:first', frame: 0, strength: 1}]
+      frames: 121
+    vary:
+      seed: [11]
