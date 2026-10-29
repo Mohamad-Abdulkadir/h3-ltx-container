@@ -120,3 +120,8 @@ initial report contains no GPU measurements.
 The standalone matrix stops on failures by default. The acceptance shell deliberately
 continues remaining cases, retains failed load/job records, and returns a nonzero
 status after writing the report. It never labels failed or cold work as warm.
+
+## Required before the next GPU run (owner notes, 2026-10-29)
+
+1. **Fix preload residency.** Preload currently requires every component to be fully GPU-resident. H3 BF16 (DiT, Qwen3-VL 32B and the VAEs) needs about 98 GB, more than a 96 GB card, so every preload and every cold job failed until the check was weakened on the pod. Preload must support a declared partial-residency policy, such as the text encoder held in CPU RAM and moved in for encoding. It must report what is resident where, so that `model_load_s` and `warm` are valid measurements. Add tests for this.
+2. **Clip length is 10–15 seconds.** Every generated test clip is 10–15 s long; 5 s is too short to judge motion and coherence. Update every example and matrix to match. For H3 use `duration_seconds` 10–15. For LTX at 24 fps use `frames` that are 8k+1, for example 241 (10 s), 289 (12 s) or 361 (15 s).
