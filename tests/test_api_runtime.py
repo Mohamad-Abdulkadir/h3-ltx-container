@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 from h3ltx.api import create_app
 from h3ltx.errors import RuntimeFault
-from h3ltx.params import JobRequest
+from h3ltx.params import H3, JobRequest
 from h3ltx.records import RunRecord, write_json
 
 TOKEN = {"Authorization": "Bearer " + "t" * 32}
@@ -327,5 +327,27 @@ async def test_long_iclora_clip_splitting(runtime, monkeypatch):
         graphs = json.loads((record.path / "workflow.json").read_text())["chunks"]
         assert len(graphs) == 3
         assert float(probe(record.path / "outputs/upscaled.mp4")["format"]["duration"]) >= 2.5
+    finally:
+        await runtime.close()
+
+
+async def test_restart_recovers_metric_journal(runtime):
+    params = H3(prompt="recover")
+    request = JobRequest(type="h3.t2v", params={"prompt": "recover"})
+    job, _ = runtime.store.submit(
+        request.model_dump(), {"params": params.model_dump(), "eligible_gpus": [0]}
+    )
+    record = RunRecord(runtime.settings.volume_root, job)
+    (record.path / "metrics.samples.jsonl").write_text(
+        '{"vram_bytes":42,"ram_bytes":43}\npartial-write'
+    )
+    runtime.store.claim(0)
+    await runtime.start()
+    try:
+        assert runtime.job(job["id"])["state"] == "failed"
+        metrics = json.loads((record.path / "metrics.json").read_text())
+        assert metrics["vram_bytes_peak"] == 42
+        assert metrics["sample_count"] == 1 and metrics["interrupted"]
+        assert runtime.store.measurements()[0]["timings_incomplete"]
     finally:
         await runtime.close()

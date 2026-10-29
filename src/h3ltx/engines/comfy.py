@@ -240,6 +240,8 @@ class ComfySupervisor:
             flags.append("--disable-smart-memory")
         self.process = await asyncio.create_subprocess_exec(
             str(self.settings.comfy_python),
+            str(Path(__file__).parents[1] / "engine_boot.py"),
+            str(os.getpid()),
             str(self.settings.comfy_root / "main.py"),
             "--listen",
             "127.0.0.1",

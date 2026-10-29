@@ -1,5 +1,7 @@
 import asyncio
 import contextlib
+import json
+import os
 import time
 from pathlib import Path
 from statistics import mean
@@ -28,11 +30,14 @@ def cgroup_oom(root: Path = Path("/sys/fs/cgroup")) -> int:
 
 
 class Sampler:
-    def __init__(self, backend: GPUBackend, index: int, interval: float = 0.5):
+    def __init__(
+        self, backend: GPUBackend, index: int, interval: float = 0.5, journal: Path | None = None
+    ):
         self.backend, self.index, self.interval = backend, index, interval
         self.samples: list[dict[str, float]] = []
         self.stop = asyncio.Event()
         self.initial_oom = cgroup_oom()
+        self.journal = journal
 
     async def run(self) -> None:
         while not self.stop.is_set():
@@ -43,6 +48,11 @@ class Sampler:
             except Exception:
                 # A disappearing GPU must not mask the engine's failure.
                 self.samples.append({"timestamp": time.time(), "ram_bytes": float(cgroup_ram())})
+            if self.journal and self.samples:
+                with self.journal.open("a") as stream:
+                    stream.write(json.dumps(self.samples[-1]) + "\n")
+                    stream.flush()
+                    os.fsync(stream.fileno())
             with contextlib.suppress(TimeoutError):
                 await asyncio.wait_for(self.stop.wait(), self.interval)
 

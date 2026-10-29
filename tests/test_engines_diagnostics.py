@@ -276,3 +276,19 @@ def test_sigma_interpolation(steps):
     assert len(values) == steps + 1
     assert values[0] == 1 and values[-1] == 0
     assert all(a >= b for a, b in zip(values, values[1:], strict=False))
+
+
+def test_engine_parent_death_contract(monkeypatch):
+    import h3ltx.engine_boot as module
+
+    calls = []
+    monkeypatch.setattr(module.sys, "platform", "linux")
+    monkeypatch.setattr(
+        module.ctypes, "CDLL", lambda *a, **kw: SimpleNamespace(prctl=lambda *args: 0)
+    )
+    monkeypatch.setattr(module.os, "getppid", lambda: 123)
+    monkeypatch.setattr(module.os, "execv", lambda executable, args: calls.append(args))
+    module.launch(123, ["main.py", "--cpu"])
+    assert calls[0][-2:] == ["main.py", "--cpu"]
+    with pytest.raises(SystemExit):
+        module.launch(456, ["main.py"])

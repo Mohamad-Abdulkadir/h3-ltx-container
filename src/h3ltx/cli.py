@@ -26,7 +26,7 @@ def local_environment() -> None:
 def selection(groups: str | None) -> tuple[Settings, Manifest, list[str]]:
     settings = Settings()
     manifest = Manifest.load(settings.manifest_path)
-    return settings, manifest, groups.split(",") if groups else manifest.default_groups
+    return settings, manifest, (groups or settings.model_groups).split(",")
 
 
 @models_app.command("status")

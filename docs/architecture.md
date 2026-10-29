@@ -146,6 +146,15 @@ Details left open by SPEC.md were resolved as follows:
 37. Prefer 128 GB host RAM for BF16 offload as an unmeasured deployment recommendation;
     do not present it as a measured minimum.
 
+38. Fsync an append-only metric sample journal so crash recovery can reconstruct
+    observed peaks/means even when final metrics.json was never written. Ignore a
+    truncated final journal line and mark recovered metrics as interrupted.
+
+39. On Linux, start engines through a small exec wrapper that requests SIGTERM on
+    parent death and checks for a parent-exit race. This prevents an orphan engine
+    from continuing GPU work after the runtime crashes. Normal shutdown still uses
+    explicit interrupts, bounded waits and process termination.
+
 ## Verification boundaries
 
 The recorded native schemas came from CPU ComfyUI, not an invented fixture. The

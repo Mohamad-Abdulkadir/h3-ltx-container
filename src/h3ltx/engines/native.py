@@ -28,6 +28,8 @@ class NativeEngine:
             return
         self.process = await asyncio.create_subprocess_exec(
             str(self.settings.ltx_python),
+            str(Path(__file__).parents[1] / "engine_boot.py"),
+            str(os.getpid()),
             "-m",
             "h3ltx.native_runner",
             env={

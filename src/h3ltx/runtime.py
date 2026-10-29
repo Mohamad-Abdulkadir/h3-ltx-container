@@ -72,6 +72,13 @@ class Runtime:
         self.owner.acquire(timeout=0)
         for job in self.store.recover():
             record = RunRecord(self.settings.volume_root, job)
+            journal = record.path / "metrics.samples.jsonl"
+            if journal.exists():
+                recovered = Sampler(self.backend, job["gpu"] or 0)
+                for line in journal.read_text().splitlines():
+                    with contextlib.suppress(ValueError):
+                        recovered.samples.append(json.loads(line))
+                record.write("metrics", {**recovered.summary(), "interrupted": True})
             record.write(
                 "result",
                 {"state": "failed", "error": self.store.get(job["id"])["error"], "outputs": []},
@@ -410,7 +417,12 @@ class Runtime:
 
     async def execute(self, job: dict[str, Any], p: Common, index: int, engine: Engine) -> None:
         record = RunRecord(self.settings.volume_root, job)
-        sampler = Sampler(self.backend, index, self.settings.metric_interval)
+        sampler = Sampler(
+            self.backend,
+            index,
+            self.settings.metric_interval,
+            record.path / "metrics.samples.jsonl",
+        )
         sampling = asyncio.create_task(sampler.run())
         started = time.monotonic()
         timeline: dict[str, Any] = {
