@@ -1,0 +1,19 @@
+{
+  "comfy_commit": "e6354106fa0761ea1f40773b9971985dbe51421a",
+  "native_node_count": 686,
+  "raw_snapshot_sha256": "123071b8ef42e5af16ab14574b1cc16309bdce4050c0689c874e101679d76b7d",
+  "command": "main.py --cpu --listen 127.0.0.1 --port 18188 --disable-all-custom-nodes --disable-api-nodes --base-directory /tmp/h3ltx-comfy-state",
+  "platform": "macOS arm64, CPython 3.12.15, CPU torch 2.15.0",
+  "source_derived": {
+    "repository": "https://github.com/Carasibana/ComfyUI-H3-FaceRefine",
+    "commit": "d8521d14fe0d721d80cd9417fff5a559cbc21aba",
+    "nodes": [
+      "H3FaceTrackCrop",
+      "H3FaceStitch",
+      "H3InjectVideoLatent",
+      "H3PerFrameDenoise"
+    ],
+    "method": "AST-only literal INPUT_TYPES and RETURN_TYPES; detector list substituted with manifest filename. Optional inference dependencies not installed."
+  },
+  "model_combos": "Empty model lists retained unchanged; validation overlays filenames from the pinned manifest. Upload combos use staged input basenames."
+}
