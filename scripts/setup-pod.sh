@@ -10,7 +10,9 @@ export DEBIAN_FRONTEND=noninteractive
 export UV_CACHE_DIR=/opt/h3ltx-install-cache UV_LINK_MODE=hardlink
 apt-get update
 apt-get install -y --no-install-recommends ca-certificates git ffmpeg python3 python3-pip libglib2.0-0 libgomp1 libgl1
-if ! command -v uv >/dev/null; then python3 -m pip install --break-system-packages uv==0.13.3; fi
+# Stock images may ship an older uv that cannot install the pinned Python; always install the pinned one.
+python3 -m pip install --break-system-packages --upgrade "uv>=0.13.3"
+hash -r
 uv python install 3.12.15
 for h3ltx_environment in runtime comfy ltx; do uv venv --python 3.12.15 "/opt/venvs/$h3ltx_environment"; done
 cp "$H3LTX_REPO_ROOT/docker/sources.lock.json" /opt/source-pins.json

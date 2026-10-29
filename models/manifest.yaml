@@ -252,7 +252,7 @@ files:
   path: diffusion_models/ltx-2.5-22b-dev-transformer-bf16.safetensors
   destination: diffusion_models/ltx-2.5-22b-dev-transformer-bf16.safetensors
   size_bytes: 42018190584
-  sha256: '****************************************************************'
+  sha256: 792a2bad501ca03262c0bc2ce7a2949e85b142ce18e30894aad5bc849c8e7584
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -262,7 +262,7 @@ files:
   path: diffusion_models/ltx-2.5-22b-dev-transformer-comfy-int8-convrot.safetensors
   destination: diffusion_models/ltx-2.5-22b-dev-transformer-comfy-int8-convrot.safetensors
   size_bytes: 21504034224
-  sha256: '****************************************************************'
+  sha256: 2edbdb4465cd6c3b532cd67a31ddb38a63e97dcad20be3729675e2a4e8caf92b
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -272,7 +272,7 @@ files:
   path: diffusion_models/ltx-2.5-22b-distilled-transformer-bf16.safetensors
   destination: diffusion_models/ltx-2.5-22b-distilled-transformer-bf16.safetensors
   size_bytes: 42018190584
-  sha256: '****************************************************************'
+  sha256: 31eb3cad89b9e54e99dd3baf286f70825ac4f6c660a70d9184d895be76d7bff4
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -282,7 +282,7 @@ files:
   path: diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors
   destination: diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors
   size_bytes: 21504034224
-  sha256: '****************************************************************'
+  sha256: c4279eeff115cbeaca494bd2183e7d768c38fe85a184dc6afbb7159157c44334
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -292,7 +292,7 @@ files:
   path: diffusion_models/ltx-2.5-22b-distilled-transformer-nvfp4.safetensors
   destination: diffusion_models/ltx-2.5-22b-distilled-transformer-nvfp4.safetensors
   size_bytes: 18721548408
-  sha256: '****************************************************************'
+  sha256: 4b94231e734c1950f8f6826cb8bd8715d94be5b3e04f8256ee060c5bc3886c30
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -302,7 +302,7 @@ files:
   path: latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors
   destination: latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors
   size_bytes: 995778752
-  sha256: '****************************************************************'
+  sha256: eb5a71fe4068ee87ccdb1c3aa635e547ca76bd2d30ae20ae889f2c325c0677e8
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -312,7 +312,7 @@ files:
   path: latent_upscale_models/ltx-2.5-latent-temporal-upscaler-x2-bf16-1.0.safetensors
   destination: latent_upscale_models/ltx-2.5-latent-temporal-upscaler-x2-bf16-1.0.safetensors
   size_bytes: 261944000
-  sha256: '****************************************************************'
+  sha256: 2bc3300f2b3c3c1834d72164fbf13a3b9fd73e5a741e8a2c3f4035f89a75c3fe
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -322,7 +322,7 @@ files:
   path: loras/ltx-2.5-22b-distilled-lora-450-bf16.safetensors
   destination: loras/ltx-2.5-22b-distilled-lora-450-bf16.safetensors
   size_bytes: 8899889568
-  sha256: '****************************************************************'
+  sha256: 86370bbf79a9eb4edaa158907e2b48a5188fe4c5dc8ce30c7eb8f2f131a9bbf5
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -332,7 +332,7 @@ files:
   path: text_encoders/gemma4-12b-with-proj-ltx-2.5-bf16.safetensors
   destination: text_encoders/gemma4-12b-with-proj-ltx-2.5-bf16.safetensors
   size_bytes: 26263858182
-  sha256: '****************************************************************'
+  sha256: ef7243612fdae7a75cb4d5cee9433e81380675fb6c213bd98ae74a9cd16561d1
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -342,7 +342,7 @@ files:
   path: vae/ltx-2.5-audio-vae-bf16.safetensors
   destination: vae/ltx-2.5-audio-vae-bf16.safetensors
   size_bytes: 364866540
-  sha256: '****************************************************************'
+  sha256: c52733d37f6a7fb7949c3dc0fb468c6cb2169e4d836983a73babb9f0d54837a5
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -352,7 +352,7 @@ files:
   path: vae/ltx-2.5-video-vae-bf16.safetensors
   destination: vae/ltx-2.5-video-vae-bf16.safetensors
   size_bytes: 1472223346
-  sha256: '****************************************************************'
+  sha256: 847e14ca7f3355debca0cea4eaa24ac0fbcdf0061da054ac89ca638a869ddba3
   revision: 49b093a39c19169a8a81721dcc541e07e945232f
   license: ltx-2.x-community
   gated: true
@@ -362,7 +362,7 @@ files:
   path: ltx-2.5-22b-ic-lora-pixel-spatial-upscaler-x2-1.0.safetensors
   destination: loras/ltx-2.5-22b-ic-lora-pixel-spatial-upscaler-x2-1.0.safetensors
   size_bytes: 327322640
-  sha256: '****************************************************************'
+  sha256: 984851b769ea2bcb4c9e0a239a7676239e42c6a6001ddc69943b41ff0b283c1d
   revision: 59f26f1e0c11af42f1affa924b4ef231e9e98b2a
   license: ltx-2.x-community
   gated: true
@@ -372,7 +372,7 @@ files:
   path: ltx-2.5-22b-ic-lora-refine-details-1.0.safetensors
   destination: loras/ltx-2.5-22b-ic-lora-refine-details-1.0.safetensors
   size_bytes: 1308787534
-  sha256: '****************************************************************'
+  sha256: 771a84f70e143af89867fc714ebbf7bd6edcaa4974c0360cba4a2d292a99f0e6
   revision: 4912c478b35dd96b6cdcc5f7c7ff9d72c2c57929
   license: ltx-2.x-community
   gated: true
@@ -382,7 +382,7 @@ files:
   path: ltx-2.5-22b-ic-lora-sdr-to-hdr-1.0.safetensors
   destination: loras/ltx-2.5-22b-ic-lora-sdr-to-hdr-1.0.safetensors
   size_bytes: 1308787472
-  sha256: '****************************************************************'
+  sha256: 0b39eac09672c18d0d10f401d5e71a68a73225f1169df826b092b7e5ef489675
   revision: c7578ebddb54f4210e534e4d8cad698a5a520692
   license: ltx-2.x-community
   gated: true
@@ -392,7 +392,7 @@ files:
   path: ltx-2.5-22b-ic-lora-sdr-to-hdr-scene-emb.safetensors
   destination: loras/ltx-2.5-22b-ic-lora-sdr-to-hdr-scene-emb.safetensors
   size_bytes: 12614165
-  sha256: '****************************************************************'
+  sha256: 63c03987a1984f6d4b3d3440c15deee66b0310c01950496329f983f5dc8c88bd
   revision: c7578ebddb54f4210e534e4d8cad698a5a520692
   license: ltx-2.x-community
   gated: true
@@ -402,7 +402,7 @@ files:
   path: ltx-2.5-22b-ic-lora-deblur-0.9.safetensors
   destination: loras/ltx-2.5-22b-ic-lora-deblur-0.9.safetensors
   size_bytes: 906080571
-  sha256: '****************************************************************'
+  sha256: 62dce32f671429c0ca98fdba997cabb9925fcfe79bbf788c5aa62a3a4c4a5a93
   revision: c122ce9224a6002bdb44efc55b882c903387dca6
   license: ltx-2.x-community
   gated: true
@@ -412,7 +412,7 @@ files:
   path: ltx-2.5-22b-ic-lora-decompression-0.9.safetensors
   destination: loras/ltx-2.5-22b-ic-lora-decompression-0.9.safetensors
   size_bytes: 906080571
-  sha256: '****************************************************************'
+  sha256: dd42b8fb53e2fb004bc36479ce4f1ea977ec5ba2160aba51e0fbfdcce00db0b1
   revision: 0cdc45deea0118e3e1250f55ac6f0d7ba49fdabb
   license: ltx-2.x-community
   gated: true
