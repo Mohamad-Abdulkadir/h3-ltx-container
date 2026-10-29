@@ -1,0 +1,9 @@
+{
+  "type": "upscale.ltx_iclora",
+  "params": {
+    "input_video": "00000000000000000000000000000000",
+    "mode": "pixel-spatial",
+    "prompt": "Preserve the original scene with fine natural detail.",
+    "clip_seconds": 5
+  }
+}

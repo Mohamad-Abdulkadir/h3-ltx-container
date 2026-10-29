@@ -1,0 +1,13 @@
+{
+  "type": "ltx.i2v",
+  "params": {
+    "prompt": "The subject turns toward the camera.",
+    "keyframes": [
+      {
+        "upload_id": "00000000000000000000000000000000",
+        "frame": 0,
+        "strength": 1
+      }
+    ]
+  }
+}

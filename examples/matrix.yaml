@@ -1,0 +1,23 @@
+name: h3-ltx-acceptance
+experiments:
+  - name: h3-turbo-offload
+    type: h3.t2v
+    params:
+      prompt: A fixed camera observes ocean waves at sunrise, realistic light and natural sound.
+      seed: 1234
+      duration_seconds: 5
+      width: 1152
+      height: 640
+    vary:
+      turbo: [none, 4-step, 8-step]
+      text_encoder_offload: [on, off]
+  - name: ltx-engine-comparison
+    type: ltx.t2v
+    params:
+      prompt: A fixed camera observes ocean waves at sunrise, realistic light and natural sound.
+      seed: 1234
+      width: 1280
+      height: 704
+      frames: 121
+    vary:
+      engine: [comfy, ltx-native]

@@ -1,0 +1,20 @@
+{
+  "type": "h3.t2v",
+  "params": {
+    "prompt": "A cinematic coastal sunrise with natural ocean sound.",
+    "duration_seconds": 5
+  },
+  "post": [
+    {
+      "type": "upscale.seedvr2",
+      "params": {
+        "model": "7b-sharp",
+        "target_short_side": 1080
+      }
+    },
+    {
+      "type": "refine.h3_face",
+      "params": {}
+    }
+  ]
+}

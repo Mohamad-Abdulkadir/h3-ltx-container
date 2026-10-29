@@ -1,0 +1,10 @@
+{
+  "type": "ltx.dfr",
+  "params": {
+    "prompt": "A cinematic coastal sunrise with natural ocean sound.",
+    "width": 1920,
+    "height": 1088,
+    "temporal_upscale": 0,
+    "tiled": true
+  }
+}

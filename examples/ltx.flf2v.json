@@ -1,0 +1,18 @@
+{
+  "type": "ltx.flf2v",
+  "params": {
+    "prompt": "A smooth transition between two views.",
+    "keyframes": [
+      {
+        "upload_id": "00000000000000000000000000000000",
+        "frame": 0,
+        "strength": 1
+      },
+      {
+        "upload_id": "11111111111111111111111111111111",
+        "frame": -1,
+        "strength": 1
+      }
+    ]
+  }
+}

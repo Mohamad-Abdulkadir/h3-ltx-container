@@ -155,6 +155,11 @@ Details left open by SPEC.md were resolved as follows:
     from continuing GPU work after the runtime crashes. Normal shutdown still uses
     explicit interrupts, bounded waits and process termination.
 
+40. Allocate a 50 GB container disk alongside the specified 550 GB network volume.
+    Keep all three virtualenvs and upstream source outside the volume mount, and keep
+    user data/models exclusively on the volume. Enable NVIDIA's video driver capability
+    so encode probing can see NVENC libraries.
+
 ## Verification boundaries
 
 The recorded native schemas came from CPU ComfyUI, not an invented fixture. The

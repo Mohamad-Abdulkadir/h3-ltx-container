@@ -9,6 +9,7 @@ uv run ruff format --check .
 uv run mypy src/h3ltx
 uv run pytest
 uv build
+uv run python scripts/verify_local.py
 ```
 
 Tests run without a GPU. They validate API graphs against the recorded fixture and

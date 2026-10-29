@@ -1,0 +1,8 @@
+{
+  "type": "refine.h3_face",
+  "params": {
+    "input_video": "00000000000000000000000000000000",
+    "prompt": "Natural detailed face, preserve identity.",
+    "denoise": 0.25
+  }
+}

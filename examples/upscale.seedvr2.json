@@ -1,0 +1,9 @@
+{
+  "type": "upscale.seedvr2",
+  "params": {
+    "input_video": "00000000000000000000000000000000",
+    "model": "7b",
+    "target_short_side": 1080,
+    "tiled": true
+  }
+}

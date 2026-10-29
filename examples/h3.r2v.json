@@ -1,0 +1,12 @@
+{
+  "type": "h3.r2v",
+  "params": {
+    "prompt": "Preserve the identity of the person in <Picture 1>.",
+    "references": [
+      {
+        "upload_id": "00000000000000000000000000000000",
+        "kind": "image"
+      }
+    ]
+  }
+}

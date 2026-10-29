@@ -1,0 +1,18 @@
+name: Bug report
+description: Report a reproducible runtime problem
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and expected behaviour
+    validations: {required: true}
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include a redacted request, image version, GPU profile and relevant run files. Never include tokens or private media.
+    validations: {required: true}
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted doctor output and engine log excerpt
