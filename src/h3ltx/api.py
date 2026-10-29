@@ -20,6 +20,7 @@ from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from h3ltx.config import Settings
 from h3ltx.errors import RuntimeFault
+from h3ltx.loading import LoadRequest, UnloadRequest
 from h3ltx.models import status
 from h3ltx.params import JobRequest
 from h3ltx.records import RunRecord
@@ -174,6 +175,8 @@ def create_app(settings: Settings | None = None, runtime: Runtime | None = None)
 
     @app.get("/v1/capacity", dependencies=auth)
     async def capacity() -> dict[str, Any]:
+        for index in current().profiles:
+            await current().loading.refresh(index)
         return current().capacity()
 
     @app.get("/v1/models", dependencies=auth)
@@ -213,6 +216,22 @@ def create_app(settings: Settings | None = None, runtime: Runtime | None = None)
             finally:
                 path.unlink(missing_ok=True)
 
+    @app.post("/v1/load", dependencies=auth, status_code=202)
+    async def load_models(request: LoadRequest) -> dict[str, Any]:
+        return current().loading.submit(request, "load")
+
+    @app.post("/v1/unload", dependencies=auth, status_code=202)
+    async def unload_models(request: UnloadRequest | None = None) -> dict[str, Any]:
+        return current().loading.submit(request or UnloadRequest(), "unload")
+
+    @app.get("/v1/load/{identifier}", dependencies=auth)
+    async def load_status(identifier: str) -> dict[str, Any]:
+        result = current().job(identifier)
+        if result["type"] not in ("system.load", "system.unload"):
+            raise RuntimeFault("load_not_found", "Load operation not found", 404)
+        result["load_id"] = identifier
+        return result
+
     @app.post("/v1/jobs", dependencies=auth, status_code=202)
     async def submit(request: JobRequest) -> dict[str, Any]:
         return current().submit(request)
@@ -239,6 +258,7 @@ def create_app(settings: Settings | None = None, runtime: Runtime | None = None)
     async def job(identifier: str) -> dict[str, Any]:
         return current().job(identifier)
 
+    @app.get("/v1/load/{identifier}/events", dependencies=auth)
     @app.get("/v1/jobs/{identifier}/events", dependencies=auth)
     async def events(
         identifier: str, request: Request, last_event_id: Annotated[str | None, Header()] = None
@@ -334,11 +354,15 @@ def create_app(settings: Settings | None = None, runtime: Runtime | None = None)
 
     @app.get("/v1/stats", dependencies=auth)
     async def stats(
-        group_by: str = "type,profile,resolution,steps", since: float | None = None
+        group_by: str = "type,profile,resolution,steps",
+        since: float | None = None,
+        include_cold: bool = False,
     ) -> dict[str, Any]:
         return {
-            "groups": summarize(current().store.measurements(since), group_by),
+            "groups": summarize(current().store.measurements(since), group_by, include_cold),
             "cost_rate_usd_per_gpu_hour": config.gpu_hourly_usd,
+            "hardware": [g.as_dict() for g in current().gpus],
+            "software": current().versions,
         }
 
     @app.post("/v1/admin/doctor", dependencies=auth)

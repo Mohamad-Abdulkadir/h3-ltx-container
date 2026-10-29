@@ -22,7 +22,14 @@ def write_json(path: Path, data: Any) -> None:
 class RunRecord:
     def __init__(self, volume: Path, job: dict[str, Any], initialize: bool = True):
         date = datetime.fromtimestamp(job["created"], UTC).strftime("%Y-%m-%d")
-        self.path = volume / "runs" / date / job["id"]
+        prefix = (
+            "load-"
+            if job["type"] == "system.load"
+            else "unload-"
+            if job["type"] == "system.unload"
+            else ""
+        )
+        self.path = volume / "runs" / date / (prefix + job["id"])
         if not initialize:
             if not self.path.is_dir():
                 from h3ltx.errors import RuntimeFault

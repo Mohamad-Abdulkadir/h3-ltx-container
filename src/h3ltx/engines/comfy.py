@@ -115,7 +115,12 @@ class ComfyClient:
         return dict(response.json())
 
     async def execute(
-        self, graph: Graph, params: Common, output: Path, progress: Progress
+        self,
+        graph: Graph,
+        params: Common,
+        output: Path,
+        progress: Progress,
+        require_outputs: bool = True,
     ) -> dict[str, Any]:
         identifier = uuid.uuid4().hex
         timeline = EventTimeline(graph)
@@ -179,11 +184,29 @@ class ComfyClient:
                             target = output / source.name
                             await asyncio.to_thread(shutil.move, source, target)
                             copied.append(target.name)
-                if not copied:
+                if require_outputs and not copied:
                     raise RuntimeFault("engine_no_output", "Engine returned no output files", 500)
                 return {"timeline": timeline.result(), "history": history, "outputs": copied}
             finally:
                 self.active_prompt = None
+
+    async def load(
+        self, graph: Graph, params: Common, output: Path, progress: Progress
+    ) -> dict[str, Any]:
+        result = await self.execute(graph, params, output, progress, require_outputs=False)
+        reports = [
+            v
+            for node in result["history"].get("outputs", {}).values()
+            for v in node.get("h3ltx_load", [])
+        ]
+        if not reports:
+            raise RuntimeFault("load_protocol", "ComfyUI did not return a load report", 500)
+        return dict(reports[-1])
+
+    async def resident(self) -> dict[str, Any]:
+        response = await self.http.get("/h3ltx/resident")
+        response.raise_for_status()
+        return dict(response.json())
 
     async def interrupt(self) -> None:
         # One runtime slot owns this process. Remove only its active prompt if queued.
@@ -236,8 +259,7 @@ class ComfySupervisor:
         )
         if not policy[1]:
             flags.append("--cache-none")
-        if policy[2] != "off":
-            flags.append("--disable-smart-memory")
+
         self.process = await asyncio.create_subprocess_exec(
             str(self.settings.comfy_python),
             str(Path(__file__).parents[1] / "engine_boot.py"),
@@ -254,7 +276,11 @@ class ComfySupervisor:
             cwd=self.settings.comfy_root,
             env={
                 k: v
-                for k, v in {**os.environ, "CUDA_VISIBLE_DEVICES": str(self.index)}.items()
+                for k, v in {
+                    **os.environ,
+                    "CUDA_VISIBLE_DEVICES": str(self.index),
+                    "H3LTX_TEXT_OFFLOAD": policy[2],
+                }.items()
                 if k not in ("API_TOKEN", "HF_TOKEN", "RUNPOD_API_KEY")
             },
             stdout=asyncio.subprocess.PIPE,

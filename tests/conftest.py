@@ -30,6 +30,9 @@ class FakeEngine:
         self.delay = 0
         self.error = None
         self.interrupts = 0
+        self.loads = []
+        self.loaded = {}
+        self.load_delay = 0
 
     async def info(self):
         return self.schema
@@ -47,6 +50,40 @@ class FakeEngine:
             "outputs": ["video.mp4"],
             "timeline": {"stages": {"sampling": 0.01}, "cached_nodes": []},
         }
+
+    async def load(self, graph, params, output, progress):
+        import asyncio
+
+        await asyncio.sleep(self.load_delay)
+        action = graph["h3ltx_load"]["inputs"]["action"]
+        key = graph["h3ltx_load"]["inputs"]["pipeline"]
+        self.loads.append((action, key))
+        if action == "load":
+            self.loaded[key] = {"resident": True}
+        elif key == "all":
+            self.loaded.clear()
+        else:
+            self.loaded.pop(key, None)
+        await progress({"stage": "model_load", "progress": 100})
+        return {
+            "seconds": 0.01,
+            "components": [
+                {
+                    "component": "fake",
+                    "read_from_disk_s": 0.005,
+                    "transfer_to_gpu_s": 0.005,
+                    "compile_s": None,
+                }
+            ],
+            "resident": dict(self.loaded),
+        }
+
+    async def resident(self):
+        return {"pipelines": dict(self.loaded)}
+
+    async def prepare(self, params, action, output, progress):
+        self.loads.append((action, "native"))
+        return {"seconds": 0.01, "components": []}
 
     async def interrupt(self):
         self.interrupts += 1

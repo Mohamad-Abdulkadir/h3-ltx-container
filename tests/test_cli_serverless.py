@@ -125,3 +125,22 @@ async def test_serverless_uses_shared_queue(runtime, monkeypatch):
     assert observed[0]["state"] == "succeeded"
     assert observed[0]["run_dir"]
     assert "base64" not in observed[0]
+
+
+def test_cli_load_unload(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    calls = []
+
+    def fake_request(method, path, **kwargs):
+        calls.append((method, path, kwargs))
+        return {"load_id": "a" * 32, "id": "a" * 32, "state": "succeeded"}
+
+    monkeypatch.setattr(client, "request", fake_request)
+    assert (
+        runner.invoke(
+            cli.app, ["load", "h3-fl2v", "--gpus", "0", "--profile", "blackwell-96"]
+        ).exit_code
+        == 0
+    )
+    assert runner.invoke(cli.app, ["unload"]).exit_code == 0
+    assert calls[0][2]["json"]["model"] == "h3-fl2v"

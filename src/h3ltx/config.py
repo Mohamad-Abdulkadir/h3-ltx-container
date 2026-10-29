@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     ltx_python: Path = Path("/opt/venvs/ltx/bin/python")
     comfy_port: int = 8188
     manifest_path: Path = Path(__file__).parent / "data/manifest.yaml"
+    model_sync_on_start: bool = True
     model_groups: str = "h3-core,h3-upscale,seedvr2,ltx-core,ltx-iclora"
     upload_max_bytes: int = 2 * 1024**3
     job_timeout_seconds: int = Field(default=7200, ge=1)

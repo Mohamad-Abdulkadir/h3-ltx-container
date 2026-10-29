@@ -84,3 +84,22 @@ after replacing the volume/database, because completion cursors can start again.
 Artifact names are relative to the run root, such as `outputs/video.mp4`.
 File downloads support `Range: bytes=0-1048575`; invalid ranges return 416.
 Bundles use stored ZIP entries to avoid expensive recompression of video.
+
+
+## Explicit model operations
+
+`POST /v1/load` accepts `model`, optional GPU indices or `"all"`, and an optional
+hardware-profile assertion. `params` optionally supplies the exact job parameter
+variants to preload; the benchmark runner uses it for LoRA/precision/offload parity.
+The default engine is ComfyUI; LTX also has an experimental `engine=ltx-native` path.
+The response is 202 with `load_id`. Poll `GET /v1/load/{id}` or its `/events` SSE route.
+Each per-GPU result contains component timings and sampled peak metrics, with a run
+record under `runs/<date>/load-<id>`. `POST /v1/unload` accepts a model or `all`, the
+same GPU selection, and records a separate timed operation.
+
+`/v1/capabilities` lists `loadable_pipelines`; system/capacity include per-GPU residency.
+Every generation records `warm` and `model_load_s`; zero means the dispatch used an
+already loaded pipeline. Default stats exclude cold work from generation percentiles;
+use `include_cold=true` to include it. Operation groups are always separated, including
+when requesting `group_by=model,profile`. Loader-node overhead is kept separate from
+initial model-loading duration. Unknown or untriggered compile timings are null.

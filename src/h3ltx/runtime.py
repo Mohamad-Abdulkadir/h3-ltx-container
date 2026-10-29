@@ -20,9 +20,10 @@ from h3ltx.engines.native import NativeEngine
 from h3ltx.errors import RuntimeFault
 from h3ltx.gpu import FakeBackend, GPUBackend, NVMLBackend, admit, profile_for
 from h3ltx.idle import IdleStop
+from h3ltx.loading import ModelLoading, pipeline_for, pipelines
 from h3ltx.media import encode_output, ffmpeg
 from h3ltx.metrics import Sampler
-from h3ltx.models import Manifest, status
+from h3ltx.models import Manifest, status, sync
 from h3ltx.params import H3, LTX, REGISTRY, Common, ICLora, JobRequest, VideoInput
 from h3ltx.records import RunRecord, output_metadata
 from h3ltx.store import TERMINAL, Store
@@ -67,6 +68,8 @@ class Runtime:
         self.owner = FileLock(str(settings.volume_root / "state/runtime.owner.lock"))
         self.idle = IdleStop(settings)
         self.versions: dict[str, Any] = {}
+        self.gpu_locks = {index: asyncio.Lock() for index in self.profiles}
+        self.loading = ModelLoading(self)
 
     async def start(self) -> None:
         self.owner.acquire(timeout=0)
@@ -86,6 +89,37 @@ class Runtime:
         self.versions = (
             await software(self.settings) if not self.injected else {"test_backend": True}
         )
+        if self.settings.model_sync_on_start and self.profiles and not self.injected:
+            files = self.manifest.select(self.settings.model_groups.split(","))
+            missing_bytes = sum(
+                m.size_bytes
+                for m, item in zip(
+                    files, status(files, self.settings.volume_root / "models"), strict=True
+                )
+                if item["status"] != "ready"
+            )
+            tick = time.monotonic()
+            await asyncio.to_thread(
+                sync,
+                files,
+                self.settings.volume_root / "models",
+                self.settings.hf_token.get_secret_value() or None,
+            )
+            download = {
+                "groups": self.settings.model_groups.split(","),
+                "bytes": missing_bytes,
+                "decimal_gb": missing_bytes / 1e9,
+                "seconds": time.monotonic() - tick,
+                "includes_verification": True,
+            }
+            from h3ltx.records import write_json
+
+            write_json(self.settings.volume_root / "state/startup-download.json", download)
+            log.info(
+                "Startup model sync: %.3f GB in %.3f seconds (download + verification)",
+                download["decimal_gb"],
+                download["seconds"],
+            )
         for index in self.profiles:
             try:
                 if not self.injected:
@@ -116,6 +150,7 @@ class Runtime:
 
     async def close(self) -> None:
         self.shutdown.set()
+        await self.loading.close()
         for identifier in list(self.active):
             await self.cancel(identifier)
         for task in self.workers:
@@ -198,6 +233,10 @@ class Runtime:
                 "gpu_incompatible", f"Torch build lacks {arch}; use a compatible CUDA wheel"
             )
         admission = admit(kind, p, self.profiles[index])
+        if p.engine == "ltx-native" and not isinstance(p, LTX):
+            raise RuntimeFault(
+                "engine_incompatible", "ltx-native generation supports LTX pipelines only"
+            )
         if p.engine == "ltx-native" and not self.injected:
             if not self.settings.ltx_python.is_file():
                 raise RuntimeFault("engine_unavailable", "ltx-native Python is unavailable", 503)
@@ -337,13 +376,14 @@ class Runtime:
         return job
 
     def capacity(self) -> dict[str, Any]:
-        busy = {entry[0] for entry in self.active.values()}
+        busy = {entry[0] for entry in self.active.values()} | self.loading.active
         total = len(self.profiles)
         return {
             "slots_total": total,
             "slots_busy": len(busy),
             "slots_free": total - len(busy),
             "queue_length": len(self.store.list(states=["queued"], limit=1000000)),
+            "resident": self.loading.resident,
             "gpus": [
                 {"index": i, "state": "busy" if i in busy else "idle", "profile": p["id"]}
                 for i, p in self.profiles.items()
@@ -385,35 +425,44 @@ class Runtime:
                     "parameters": cls.model_json_schema(),
                 }
             )
-        return {"job_types": capabilities, "profiles": self.profiles, "limits_provisional": True}
+        return {
+            "job_types": capabilities,
+            "profiles": self.profiles,
+            "limits_provisional": True,
+            "loadable_pipelines": [
+                {"model": key, "type": kind, "engine": p.engine}
+                for key, (kind, p) in pipelines().items()
+            ],
+        }
 
     async def worker(self, index: int) -> None:
         while not self.shutdown.is_set():
-            eligible = [
-                j["id"]
-                for j in self.store.list(states=["queued"], limit=1000000)
-                if index in j["resolved"].get("eligible_gpus", [])
-            ]
-            job = self.store.claim(index, eligible)
+            async with self.gpu_locks[index]:
+                eligible = [
+                    j["id"]
+                    for j in self.store.list(states=["queued"], limit=1000000)
+                    if index in j["resolved"].get("eligible_gpus", [])
+                ]
+                job = self.store.claim(index, eligible)
+                if job:
+                    params = REGISTRY[job["type"]].model_validate(job["resolved"]["params"])
+                    engine = (
+                        self.engines[index]
+                        if params.engine == "comfy" or self.injected
+                        else self.native[index]
+                    )
+                    task = asyncio.create_task(self.execute(job, params, index, engine))
+                    self.active[job["id"]] = (index, task, engine)
+                    try:
+                        await task
+                    except asyncio.CancelledError:
+                        if self.shutdown.is_set():
+                            raise
+                    finally:
+                        self.active.pop(job["id"], None)
+                        self.idle.last_activity = time.monotonic()
             if not job:
                 await asyncio.sleep(self.settings.poll_seconds)
-                continue
-            params = REGISTRY[job["type"]].model_validate(job["resolved"]["params"])
-            engine = (
-                self.engines[index]
-                if params.engine == "comfy" or self.injected
-                else self.native[index]
-            )
-            task = asyncio.create_task(self.execute(job, params, index, engine))
-            self.active[job["id"]] = (index, task, engine)
-            try:
-                await task
-            except asyncio.CancelledError:
-                if self.shutdown.is_set():
-                    raise
-            finally:
-                self.active.pop(job["id"], None)
-                self.idle.last_activity = time.monotonic()
 
     async def execute(self, job: dict[str, Any], p: Common, index: int, engine: Engine) -> None:
         record = RunRecord(self.settings.volume_root, job)
@@ -473,7 +522,10 @@ class Runtime:
                 if p.engine == "comfy":
                     await self.native[index].close()
                     self.supervisors[index].job_log = record.path / "logs/engine.log"
+                    previous_process = self.supervisors[index].process
                     await self.supervisors[index].start(p)
+                    if previous_process is not self.supervisors[index].process:
+                        self.loading.resident[index].clear()
                     self.schemas[index] = await engine.info()
                     validate_graph(graph, self.schemas[index], self.manifest, set(files.values()))
                 else:
@@ -483,6 +535,23 @@ class Runtime:
             async def progress(data: dict[str, Any]) -> None:
                 self.store.progress(job["id"], data)
 
+            key = pipeline_for(job["type"], p)
+            await self.loading.refresh(index, p.engine)
+            warm = self.loading.warm(index, key, p)
+            model_load_s = 0.0
+            if not warm:
+                tick = time.monotonic()
+                await self.loading.operate(index, key, job["type"], p, record, progress)
+                model_load_s = time.monotonic() - tick
+            timeline["model_load_s"] = model_load_s
+            timeline["warm"] = warm
+            resolved["warm"] = warm
+            resolved["pipeline"] = key
+            record.write("resolved", resolved)
+            cache_before = None
+            if p.engine == "comfy" and hasattr(engine, "resident"):
+                cache_before = await engine.resident()
+            generation_started = time.monotonic()
             engine_started = True
             async with asyncio.timeout(self.settings.job_timeout_seconds):
                 if (
@@ -494,11 +563,28 @@ class Runtime:
                     )
                 else:
                     result = await engine.execute(graph, p, record.path / "outputs", progress)
+            if cache_before is not None and hasattr(engine, "resident"):
+                cache_after = await engine.resident()
+                timeline["cache_proof"] = {"before": cache_before, "after": cache_after}
+                if warm and cache_after.get("loader_reads", 0) > cache_before.get(
+                    "loader_reads", 0
+                ):
+                    warm = False
+                    resolved["warm"] = False
+                    timeline["warm"] = False
+                    timeline["warm_cache_violation"] = True
+                    timeline["model_load_s"] = max(
+                        0,
+                        cache_after.get("loader_read_s", 0) - cache_before.get("loader_read_s", 0),
+                    )
+                    record.write("resolved", resolved)
             if "software" in result:
                 resolved["native_software"] = result["software"]
                 record.write("resolved", resolved)
             observed = result.get("timeline", {})
-            timeline["stages"].update(observed.pop("stages", {}))
+            engine_stages = observed.pop("stages", {})
+            timeline["loader_node_overhead_s"] = engine_stages.pop("model_load", 0)
+            timeline["stages"].update(engine_stages)
             timeline.update(observed)
             self.store.transition(job["id"], "finalizing")
             finalizing = time.monotonic()
@@ -515,6 +601,7 @@ class Runtime:
                     record.write("resolved", resolved)
                 outputs.append(await asyncio.to_thread(output_metadata, output))
             timeline["stages"]["finalization"] = time.monotonic() - finalizing
+            timeline["generation_wall_seconds"] = time.monotonic() - generation_started
             state = "succeeded"
         except asyncio.CancelledError:
             state = "cancelled"
@@ -572,7 +659,11 @@ class Runtime:
                 "state": state,
                 "error": error,
                 "outputs": outputs,
-                "wall_seconds": wall,
+                "wall_seconds": timeline.get(
+                    "generation_wall_seconds", wall - timeline.get("model_load_s", 0)
+                ),
+                "model_load_s": timeline.get("model_load_s", 0),
+                "warm": timeline.get("warm", False),
                 "cost_estimate_usd": cost,
             }
             record.write("timeline", timeline)
@@ -598,7 +689,15 @@ class Runtime:
                         else f"{p.width}x{p.height}"
                     ),
                     "steps": getattr(p, "steps", None),
-                    "wall_seconds": wall,
+                    "wall_seconds": timeline.get(
+                        "generation_wall_seconds", wall - timeline.get("model_load_s", 0)
+                    ),
+                    "model": pipeline_for(job["type"], p),
+                    "warm": timeline.get("warm", False),
+                    "model_load_s": timeline.get("model_load_s", 0),
+                    "duration": getattr(
+                        p, "duration_seconds", getattr(p, "frames", 0) / getattr(p, "fps", 24)
+                    ),
                     "stages": timeline["stages"],
                     "cost_estimate_usd": cost,
                     "peak_vram_bytes": metrics["vram_bytes_peak"],
@@ -734,7 +833,11 @@ class Runtime:
 
     async def system(self) -> dict[str, Any]:
         self.gpus = self.backend.detect()
-        return await report(self.settings, self.gpus, self.manifest, self.schemas)
+        result = await report(self.settings, self.gpus, self.manifest, self.schemas)
+        for index in self.profiles:
+            await self.loading.refresh(index)
+        result["resident"] = self.loading.resident
+        return result
 
     async def idle_loop(self) -> None:
         while not self.shutdown.is_set():

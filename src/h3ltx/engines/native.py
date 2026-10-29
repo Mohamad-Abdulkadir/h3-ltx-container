@@ -57,6 +57,7 @@ class NativeEngine:
         await self.start()
         assert self.process and self.process.stdin and self.process.stdout
         command = {
+            "operation": graph.get("operation", {}).get("action", "generate"),
             "params": params.model_dump(),
             "output": str(output / "native.mp4"),
             "models": str(self.settings.volume_root / "models"),
@@ -73,6 +74,13 @@ class NativeEngine:
             elif event["type"] == "error":
                 raise RuntimeFault("native_execution", event["message"], 500)
         raise RuntimeFault("native_exit", "ltx-native process exited without a result", 500)
+
+    async def prepare(
+        self, params: Common, action: str, output: Path, progress: Progress
+    ) -> dict[str, Any]:
+        return await self.execute(
+            {"native": {}, "operation": {"action": action}}, params, output, progress
+        )
 
     async def interrupt(self) -> None:
         await self.close()

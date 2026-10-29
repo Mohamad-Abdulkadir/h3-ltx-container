@@ -41,7 +41,7 @@ python_version = "3.12"
 strict = true
 files = ["src/h3ltx"]
 [[tool.mypy.overrides]]
-module = ["pynvml", "runpod", "ltx_core.*", "ltx_pipelines.*", "torch"]
+module = ["pynvml", "runpod", "ltx_core.*", "ltx_pipelines.*", "torch", "nodes", "comfy.*", "comfy_api.*", "aiohttp", "server"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

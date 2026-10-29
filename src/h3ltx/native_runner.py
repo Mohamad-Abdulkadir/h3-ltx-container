@@ -24,6 +24,8 @@ def run(protocol: TextIO) -> None:
 
     pipeline: Any = None
     configuration: Any = None
+    registry: Any = None
+    resident_models: list[Any] = []
 
     def emit(kind: str, data: Any) -> None:
         protocol.write(json.dumps({"type": kind, "data": data}) + "\n")
@@ -138,6 +140,24 @@ def run(protocol: TextIO) -> None:
             try:
                 command = json.loads(line)
                 p, root = command["params"], Path(command["models"])
+                if command.get("operation") == "unload":
+                    tick = time.monotonic()
+                    resident_models.clear()
+                    pipeline = None
+                    configuration = None
+                    if registry is not None:
+                        registry.clear()
+                    import gc
+
+                    import torch
+
+                    gc.collect()
+                    torch.cuda.empty_cache()
+                    emit(
+                        "result",
+                        {"action": "unload", "seconds": time.monotonic() - tick, "components": []},
+                    )
+                    continue
                 if p["weights"] != "bf16":
                     raise ValueError("Native runner accepts BF16 only")
                 config = (str(root), p["pipeline"], p["text_encoder_offload"], p["attention"])
@@ -163,7 +183,12 @@ def run(protocol: TextIO) -> None:
                         video_vae_path=str(root / "vae/ltx-2.5-video-vae-bf16.safetensors"),
                         audio_vae_path=str(root / "vae/ltx-2.5-audio-vae-bf16.safetensors"),
                     )
+                    from ltx_core.loader.registry import ModelRegistry
+
+                    registry = ModelRegistry(cache_models=True, cache_weights=True)
+                    resident_models.clear()
                     kwargs: dict[str, Any] = dict(
+                        registry=registry,
                         model_paths=paths,
                         spatial_upsampler_path=str(
                             root
@@ -210,6 +235,60 @@ def run(protocol: TextIO) -> None:
                         pipeline = DistilledPipeline(**kwargs)
                     stages["model_load"] = time.monotonic() - start
                     configuration = config
+                if command.get("operation") == "load":
+                    import torch
+
+                    tick = time.monotonic()
+                    reports = []
+                    targets: list[tuple[str, Any]] = []
+                    for name in (
+                        "prompt_encoder",
+                        "stage",
+                        "stage_detailing",
+                        "image_conditioner",
+                        "video_decoder",
+                        "audio_decoder",
+                        "upsampler",
+                        "temporal_upsampler",
+                    ):
+                        component = getattr(pipeline, name, None)
+                        if component is None:
+                            continue
+                        for field, builder in vars(component).items():
+                            if (
+                                field.endswith("_builder")
+                                and hasattr(builder, "build")
+                                and not any(builder is b for _, b in targets)
+                            ):
+                                targets.append((name + "." + field, builder))
+                    for name, builder in targets:
+                        emit("progress", {"stage": "load:" + name, "progress": 0})
+                        component_started = time.monotonic()
+                        model = builder.build(device=get_device(), dtype=torch.bfloat16).eval()
+                        torch.cuda.synchronize()
+                        resident_models.append(model)
+                        reports.append(
+                            {
+                                "component": name,
+                                "build_and_transfer_s": time.monotonic() - component_started,
+                                "read_from_disk_s": None,
+                                "transfer_to_gpu_s": None,
+                                "compile_s": None,
+                                "timing_note": (
+                                    "native builder combines lazy disk reads and GPU assignment"
+                                ),
+                            }
+                        )
+                    emit(
+                        "result",
+                        {
+                            "action": "load",
+                            "seconds": time.monotonic() - tick,
+                            "components": reports,
+                            "resident_components": len(resident_models),
+                        },
+                    )
+                    continue
                 images = [
                     ImageConditioningInput.at(
                         command["inputs"][r["upload_id"]],

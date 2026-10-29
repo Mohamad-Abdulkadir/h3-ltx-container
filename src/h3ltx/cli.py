@@ -87,6 +87,13 @@ def doctor(json_output: Annotated[bool, typer.Option("--json")] = False) -> None
 
 @app.command()
 def serve(host: str = "0.0.0.0", port: int = 8000) -> None:
+    import logging
+
+    logger = logging.getLogger("h3ltx")
+    if not logger.handlers:
+        logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
     import uvicorn
 
     from h3ltx.api import create_app
@@ -114,3 +121,44 @@ def prune(before: Annotated[float, typer.Option()], apply: bool = False) -> None
                     shutil.rmtree(path)
     finally:
         store.close()
+
+
+def remote_operation(
+    action: str, model: str, gpus: str, profile: str | None, engine: str, wait: bool
+) -> None:
+    import time
+
+    from h3ltx.client import request
+
+    selected: str | list[int] = "all" if gpus == "all" else [int(i) for i in gpus.split(",")]
+    payload = {"model": model, "gpus": selected, "engine": engine}
+    if action == "load" and profile:
+        payload["profile"] = profile
+    result = request("POST", "/v1/" + action, json=payload)
+    if wait:
+        while True:
+            result = request("GET", "/v1/load/" + result.get("load_id", result.get("id", "")))
+            if result["state"] in ("succeeded", "failed", "cancelled"):
+                break
+            time.sleep(0.5)
+    typer.echo(json.dumps(result, indent=2))
+    if result.get("state") in ("failed", "cancelled"):
+        raise typer.Exit(1)
+
+
+@app.command()
+def load(
+    model: str,
+    gpus: str = "all",
+    profile: str | None = None,
+    engine: str = "comfy",
+    wait: bool = True,
+) -> None:
+    """Load a named pipeline into VRAM and report measured component timings."""
+    remote_operation("load", model, gpus, profile, engine, wait)
+
+
+@app.command()
+def unload(model: str = "all", gpus: str = "all", engine: str = "comfy", wait: bool = True) -> None:
+    """Unload selected resident pipelines and report elapsed time."""
+    remote_operation("unload", model, gpus, None, engine, wait)

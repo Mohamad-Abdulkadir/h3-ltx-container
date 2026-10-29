@@ -46,6 +46,9 @@ def main():
     raw = urllib.request.urlopen(args.url + "/object_info").read()
     info = json.loads(raw)
     native_count = len(info)
+    from h3ltx.comfy_extension import H3LTXPreload
+
+    info["H3LTXPreload"] = {"input": H3LTXPreload.INPUT_TYPES(), "output": [], "output_node": True}
     derived = []
     tree = ast.parse((args.face / "nodes.py").read_text())
     for item in tree.body:

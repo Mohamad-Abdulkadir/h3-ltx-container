@@ -15,5 +15,8 @@
     ],
     "method": "AST-only literal INPUT_TYPES and RETURN_TYPES; detector list substituted with manifest filename. Optional inference dependencies not installed."
   },
-  "model_combos": "Empty model lists retained unchanged; validation overlays filenames from the pinned manifest. Upload combos use staged input basenames."
+  "model_combos": "Empty model lists retained unchanged; validation overlays filenames from the pinned manifest. Upload combos use staged input basenames.",
+  "authored_local": {
+    "H3LTXPreload": "Schema derived directly from original h3ltx.comfy_extension.H3LTXPreload.INPUT_TYPES; added after live CPU snapshot. No model or GPU execution."
+  }
 }

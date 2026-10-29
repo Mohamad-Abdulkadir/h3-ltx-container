@@ -29,6 +29,8 @@ RUN uv pip install --python /opt/venvs/ltx/bin/python --no-deps \
 WORKDIR /opt/h3ltx
 COPY pyproject.toml uv.lock README.md LICENSE ./
 COPY src/ ./src/
+RUN mkdir -p /opt/ComfyUI/custom_nodes/h3ltx_memory \
+    && cp src/h3ltx/comfy_extension.py /opt/ComfyUI/custom_nodes/h3ltx_memory/__init__.py
 RUN uv export --frozen --no-dev --extra serverless --no-emit-project -o /tmp/runtime.txt \
     && uv pip sync --python /opt/venvs/runtime/bin/python /tmp/runtime.txt \
     && uv pip install --python /opt/venvs/runtime/bin/python --no-deps . \

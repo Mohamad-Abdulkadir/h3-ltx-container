@@ -160,6 +160,27 @@ Details left open by SPEC.md were resolved as follows:
     user data/models exclusively on the volume. Enable NVIDIA's video driver capability
     so encode probing can see NVENC libraries.
 
+41. The updated testing phase uses the pod disk and explicit MODEL_GROUPS startup
+    synchronization; the original network-volume route remains optional. Startup
+    download/verification writes a separate GB/time record.
+42. Explicit model operations use durable system.load/system.unload records and the
+    same per-GPU asyncio locks as jobs. The local ComfyUI extension caches original
+    loader outputs by semantic inputs, independent of graph IDs/execution_cached.
+    It force-loads all supplied patchers, retains strong references, and reports actual
+    residency. Sampling still applies the required text-encoder-offload policy.
+43. Load requests may carry exact parameter overrides and an engine selector beyond
+    the minimal API shape, so matrix variants preload the weights they will use.
+    Profile is a hardware assertion. Native load instrumentation is explicitly
+    labelled when upstream builders cannot separate disk and transfer durations.
+44. Warm/cold classification is recorded at dispatch; new ComfyUI loader-read counters
+    during a purportedly warm generation invalidate that warm classification. Cold
+    jobs remain counted but leave default generation percentiles. Load/unload groups
+    remain separate regardless of group_by fields.
+45. The unattended matrix serializes unload/load/wait/generate per case, checks the
+    warm invariant and persists asset hashes/upload IDs for idempotent resumption.
+    Reporting uses real run bundles/stats, and the initial committed benchmark page
+    intentionally has no GPU measurements.
+
 ## Verification boundaries
 
 The recorded native schemas came from CPU ComfyUI, not an invented fixture. The
