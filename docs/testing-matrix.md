@@ -47,3 +47,76 @@ Before accepting a release, verify:
 
 Known verification limits: native callable/denoiser timing hooks require GPU verification; exact model-level output parity and all performance claims await GPUs.
 Document observed failures as failures, not as successful schema validation.
+
+## Unattended one-pod acceptance run
+
+Use the current stock-image/pod-disk path in `docs/runpod.md`, with the API running
+on a dedicated RTX PRO 6000 pod. Do not submit other jobs during a benchmark matrix.
+All load/unload and generation operations are serialized by the same per-GPU lock.
+The matrix unloads, loads and waits before **every** measured request, then asserts
+that the resulting job is warm. It records failures instead of silently reporting cold work as warm.
+The acceptance shell uses --continue-on-error to finish the remaining cases, renders
+the report, and exits nonzero if any case failed. Full residency can fail if a pipeline cannot fit; retain that load
+record and assess a smaller/quantized selection or a larger GPU explicitly.
+
+Prerequisites, before starting unattended execution:
+
+1. Supply your own licensed `benchmark-assets/first.png`, `last.png`, `clip.mp4`
+   and `face-clip.mp4` (a short clip with a clearly detectable real face). Keep the
+   assets private and gitignored. Use 24 fps and 4–8 seconds for the input videos.
+2. Accept gated HF licences and supply HF_TOKEN/API_TOKEN via the pod environment.
+   Configure GPU_HOURLY_USD from the actual pod rate. Confirm enough disk space;
+   the serial optional-group sync fits the 550 GB plan before large run bundles accumulate.
+3. Run `h3ltx doctor --json`, verify the image/torch/driver and actual encode test,
+   and inspect `/v1/capabilities` for expected nodes/model availability.
+4. Set a unique `BENCHMARK_RUN_ID`, set `H3LTX_URL=http://127.0.0.1:8000`, and run
+   `bash scripts/run-acceptance.sh`. It does not provision, stop or publish anything.
+
+`examples/acceptance-matrix.yaml` covers every ComfyUI loadable pipeline, including
+standalone H3 latent-upscaler loading, H3 pruned/full and turbo variants, both upscale
+paths, SeedVR2 variants, IC-LoRAs, face refinement, LTX distilled/dev/keyframes/DFR,
+temporal 24/48/96 fps and HDR. `examples/native-matrix.yaml` follows with matched
+ComfyUI/native settings. The native adapter's full-residency/build-cache behaviour
+must be accepted on the actual GPU; failures are retained while the remaining cases run.
+
+The first pass is a bounded correctness/residency baseline. Follow it with controlled
+repeats (at least three distinct run IDs) and the experimental tiled 1440p/4K ladder.
+Run admission-limit exploration separately in small steps; do not put an unbounded
+OOM search into the baseline. Face alignment, HDR colour/bit depth/audio and clip joins
+still require human output review after unattended execution.
+
+The runner stores asset hashes/upload IDs in `.matrix-state` so resuming with the
+same run ID does not create new paid requests because of changed upload IDs. It
+pulls successful and failed bundles and exports statistics. `scripts/report.py`
+regenerates `docs/BENCHMARKS.md` from those artifacts, keeping load timings separate,
+excluding cold generation percentiles and retaining GPU/software/cost provenance.
+Review the report and samples, then commit it after the real GPU run. The committed
+initial report contains no GPU measurements.
+
+
+## Open GPU-only questions for the Runpod pass
+
+- Confirm that a full pipeline's components fit simultaneously in 96 GB, including
+  BF16 text encoder, DiT, VAEs, LoRA patch state and allocator overhead. Full H3 BF16
+  A/B weights plus the BF16 text encoder may exceed that capacity. A failed full
+  load is evidence of a limit, not a successful warm benchmark; use an explicitly
+  selected larger GPU or a separately labelled offloaded/cold experiment.
+- Verify the real ComfyUI extension against the pinned V3 loader/sampler lifecycle:
+  object identity, loader-read counters, model-management residency and no new disk
+  reads between preload and generation, even with --cache-none. Local tests use
+  fake ComfyUI/model-management objects, not real model files.
+- Verify native LTX builder/component reuse and memory behaviour. Its upstream
+  builders combine disk reads and assignment; the native load report currently
+  preserves a combined build/transfer duration and null separate values. GPU
+  instrumentation must establish those individual timings before claiming parity.
+- Validate the native HDR path's additional model residency, DFR patched weights,
+  optional offload policies and all reported warm flags on real hardware.
+- Confirm HDR transfer/primaries/bit depth, 48/96 fps, face alignment, actual NVENC,
+  Sage kernels, multi-GPU isolation, and measured admission budgets.
+- Exercise the stock-image setup script and container build on Linux. Neither was
+  executed on the development Mac. No GPU wheels, images or weights may be downloaded
+  to the Mac for this follow-up.
+
+The standalone matrix stops on failures by default. The acceptance shell deliberately
+continues remaining cases, retains failed load/job records, and returns a nonzero
+status after writing the report. It never labels failed or cold work as warm.

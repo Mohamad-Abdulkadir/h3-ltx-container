@@ -10,7 +10,7 @@ experiments:
       height: 640
     vary:
       turbo: [none, 4-step, 8-step]
-      text_encoder_offload: [on, off]
+      text_encoder_offload: ["on", "off"]
   - name: ltx-engine-comparison
     type: ltx.t2v
     params:

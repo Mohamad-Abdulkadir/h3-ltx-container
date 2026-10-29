@@ -16,3 +16,6 @@ state
 dist
 *.log
 tests
+.matrix-state
+benchmark-assets
+benchmark-results

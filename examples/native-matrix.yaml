@@ -1,0 +1,11 @@
+name: native-engine-comparison
+experiments:
+  - name: ltx-engines
+    type: ltx.t2v
+    params:
+      prompt: A slow cinematic tracking shot through detailed foliage in sunlight, natural sound.
+      seed: 1729
+      text_encoder_offload: "off"
+    vary:
+      pipeline: [distilled, dev, dfr]
+      engine: [comfy, ltx-native]

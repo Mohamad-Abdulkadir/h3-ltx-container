@@ -1,0 +1,85 @@
+# Run on one dedicated pod with all listed groups installed. Supply your own licensed media.
+name: complete-gpu-acceptance
+assets:
+  first: ../benchmark-assets/first.png
+  last: ../benchmark-assets/last.png
+  video: ../benchmark-assets/clip.mp4
+  face: ../benchmark-assets/face-clip.mp4
+load_only: [h3-upscale]
+experiments:
+  - name: h3-base-pruned-full
+    type: h3.fl2v
+    params:
+      prompt: A natural cinematic portrait in moving sunlight, preserve the subject and scene.
+      seed: 1729
+      first_frame: '@asset:first'
+      last_frame: '@asset:last'
+    vary:
+      weights: [pruned-bf16, full-bf16]
+  - name: h3-reference-pruned-full
+    type: h3.r2v
+    params:
+      prompt: A cinematic scene featuring the subject in <Picture 1>, natural motion and sound.
+      seed: 1729
+      references: [{upload_id: '@asset:first', kind: image}]
+    vary:
+      weights: [pruned-bf16, full-bf16]
+  - name: h3-turbo-upscale
+    type: h3.t2v
+    params: {prompt: A cinematic coastal sunrise with detailed moving water and native ocean sound., seed: 1729, width: 960, height: 544}
+    vary:
+      turbo: [none, 4-step, 8-step]
+      latent_upscale: ["off", "2x"]
+  - name: h3-reference-turbo
+    type: h3.r2v
+    params:
+      prompt: A cinematic scene featuring the subject in <Picture 1>.
+      references: [{upload_id: '@asset:first', kind: image}]
+      seed: 1729
+    vary:
+      turbo: [4-step, 8-step]
+  - name: h3-reference-upscale
+    type: h3.r2v
+    params:
+      prompt: A cinematic scene featuring the subject in <Picture 1>.
+      references: [{upload_id: '@asset:first', kind: image}]
+      latent_upscale: 2x
+      width: 960
+      height: 544
+      seed: 1729
+  - name: h3-memory-attention
+    type: h3.t2v
+    params: {prompt: A slow cinematic tracking shot through a detailed city street., seed: 1729}
+    vary:
+      text_encoder_offload: ["on", "off"]
+      attention: [sdpa, sage]
+  - name: seedvr-models
+    type: upscale.seedvr2
+    params: {input_video: '@asset:video', target_short_side: 1080, tiled: true}
+    vary:
+      model: [7b, 7b-sharp, 3b]
+  - name: ltx-iclora
+    type: upscale.ltx_iclora
+    params: {input_video: '@asset:video', prompt: Preserve the natural scene and fine details., clip_seconds: 5}
+    vary:
+      mode: [pixel-spatial, refine-details]
+  - name: face-refine
+    type: refine.h3_face
+    params: {input_video: '@asset:face', prompt: "Natural detailed face, preserve identity.", steps: 6}
+  - name: ltx-distilled-dev
+    type: ltx.t2v
+    params: {prompt: A slow cinematic tracking shot through a detailed city street with natural sound., seed: 1729}
+    vary:
+      pipeline: [distilled, dev]
+  - name: ltx-keyframes
+    type: ltx.flf2v
+    params:
+      prompt: A smooth cinematic movement between the supplied first and last views.
+      seed: 1729
+      keyframes: [{upload_id: '@asset:first', frame: 0}, {upload_id: '@asset:last', frame: -1}]
+  - name: ltx-dfr-hdr-temporal
+    type: ltx.dfr
+    params: {prompt: A cinematic tracking shot through detailed foliage with sunlight and natural sound., seed: 1729, width: 1920, height: 1088, tiled: true}
+    vary:
+      temporal_upscale: [0, 1, 2]
+      hdr: [false, true]

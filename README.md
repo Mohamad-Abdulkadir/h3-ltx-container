@@ -10,9 +10,10 @@ primary engine; `ltx-native` provides a separate LTX comparison engine.
 
 ## Quick start
 
-1. Follow [deployment](docs/runpod.md): create a 550 GB network volume, populate
-   weights on a CPU pod, and attach the same volume to the GPU pod.
-2. Supply `API_TOKEN` (at least 32 characters) and `HF_TOKEN` as environment secrets.
+1. Follow [deployment](docs/runpod.md): start a stock Runpod PyTorch/CUDA pod,
+   clone the repository, and run `scripts/setup-pod.sh`. Use the pod disk for testing.
+2. Select `MODEL_GROUPS` for the current test; startup sync logs download GB/time.
+   Supply `API_TOKEN` (at least 32 characters) and `HF_TOKEN` as environment secrets.
    Set `VOLUME_ROOT=/workspace`, `MODE=pod`. Only port 8000 exposes the runtime;
    ComfyUI stays on loopback.
 3. Install the client on your Mac with `uv tool install .` or `pip install .`.
@@ -20,6 +21,7 @@ primary engine; `ltx-native` provides a separate LTX comparison engine.
 4. Submit and archive a run:
 
    ```sh
+   h3ltx load h3-fl2v
    h3ltx-client submit examples/h3.t2v.json
    h3ltx-client wait <job-id>
    h3ltx-client pull ./runs
@@ -33,7 +35,9 @@ The service uses environment variables only. Never put credentials in request JS
 `GET /health` is public. All other routes require `Authorization: Bearer <your-api-token>`.
 Submit to `POST /v1/jobs`, poll `/v1/jobs/{id}`, follow `/events`, or download `/bundle`.
 `/v1/system`, `/v1/capabilities`, `/v1/capacity`, `/v1/models`, and `/v1/stats` expose
-hardware, availability, queue state, model inventory, and measurements.
+hardware, availability, queue state, model inventory, residency, and measurements.
+`POST /v1/load` and `/v1/unload` measure model operations separately; cold jobs are
+excluded from generation percentiles by default. See [benchmarks](docs/BENCHMARKS.md).
 
 Generation: `h3.t2v`, `h3.fl2v`, `h3.r2v`, `ltx.t2v`, `ltx.i2v`, `ltx.flf2v`, `ltx.dfr`.
 Finishing: `upscale.seedvr2`, `upscale.ltx_iclora`, `refine.h3_face`.
@@ -44,7 +48,7 @@ Ordered `post` chains create linked child runs. See [API details](docs/api.md) a
 One BF16 job runs per eligible GPU. Profiles include RTX PRO 6000 96 GB, H100 80 GB,
 H200 141 GB, A100 80 GB, and a quantized-only Ada 48 GB profile. Budgets are provisional;
 4K LTX is experimental and requires tiling. Unsupported models or nodes disable a job
-capability with a reason. Weights live on the volume, never in the image.
+capability with a reason. Weights live on the pod disk in testing mode, never in the image. Network volumes remain optional.
 
 This repository was developed on Apple Silicon without Docker or a GPU. CPU schema
 and fake-engine tests do not establish inference quality, VRAM fit, image size, or

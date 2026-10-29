@@ -2,7 +2,7 @@
   "name": "h3ltx-api",
   "imageName": "ghcr.io/<owner>/<repository>:<version>",
   "containerDiskInGb": 50,
-  "volumeInGb": 0,
+  "volumeInGb": 550,
   "volumeMountPath": "/workspace",
   "ports": "8000/http,22/tcp",
   "isServerless": false,
@@ -12,6 +12,8 @@
     "SLOTS_PER_GPU": "1",
     "MODEL_GROUPS": "h3-core,h3-upscale,seedvr2,ltx-core,ltx-iclora",
     "IDLE_STOP_MINUTES": "0",
+    "MODEL_SYNC_ON_START": "true",
+    "ALLOW_EPHEMERAL": "true",
     "API_TOKEN": "<your-api-token>",
     "HF_TOKEN": "<your-hugging-face-token>",
     "RUNPOD_COUNTRY": "IS"

@@ -16,3 +16,6 @@ runs/
 state/
 uploads/
 .cache/
+.matrix-state/
+benchmark-assets/
+benchmark-results/
