@@ -60,6 +60,12 @@ must be refused for BF16 profiles.
 
 ## 3. Models
 
+Testing mode (current phase): no network volume. `VOLUME_ROOT` points at the pod's own
+volume disk (`/workspace`), and `h3ltx models sync --groups <only what is being tested>`
+downloads from Hugging Face when the pod starts. The pod startup logs the time and GB that
+download took. Region and licence-territory checks are warnings only and must never block
+anything. A network volume stays supported as an optional later step.
+
 Weights never go in the image. They live on a Runpod network volume under
 `$VOLUME_ROOT/models` in ComfyUI folder layout. A manifest (`models/manifest.yaml`)
 declares every file: key, group, Hugging Face repo, path in repo, destination
@@ -176,6 +182,33 @@ provider in ArcReel can swap in.
   p50/p90/max wall time, per-stage medians, peak VRAM, peak RAM, cost estimate
   (`GPU_HOURLY_USD` env), seconds of output per GPU-minute.
 - `POST /v1/admin/doctor` → runs the doctor checks and returns the report.
+
+### Explicit model loading (required)
+Loading is a separate, measured operation, so generation timings never include it.
+
+- `POST /v1/load` `{model, gpus?: [index...] | "all", profile?}`. `model` is a loadable
+  pipeline key such as `h3-fl2v`, `h3-ref2v`, `h3-upscale`, `ltx-distilled`, `ltx-dev`,
+  `seedvr2-7b` or `seedvr2-3b`; list the full set in `/v1/capabilities`. It loads every
+  component of that pipeline into VRAM on each selected engine (text encoder, DiT, VAEs,
+  LoRAs), using the same ComfyUI loaders and the same cached objects that generation uses.
+  So a following job reuses them, and must not reload them. It returns 202 with a `load_id`.
+- `GET /v1/load/{load_id}` and SSE `/v1/load/{load_id}/events`: state, per-component and
+  per-GPU timings (read from disk, transfer to GPU, compile/TensorRT build if any), and peak
+  VRAM/RAM. Every load writes a record under `$VOLUME_ROOT/runs/<date>/load-<id>/`, and
+  `/v1/stats` reports load times separately (`group_by=model,profile`).
+- `POST /v1/unload` `{model?|"all", gpus?}` frees VRAM, and records the time it takes.
+- `GET /v1/capacity` and `/v1/system` show what is resident per GPU.
+- Jobs: each job's `timeline.json` has `model_load_s`, which is 0 when the pipeline was
+  already resident. Each record states `warm: true|false`. `/v1/stats` excludes cold jobs
+  from generation-time percentiles by default (`include_cold=true` to include them).
+  A job whose pipeline isn't loaded still works: it loads lazily and is marked cold.
+- Scheduler: if a load and a job target the same engine, they run one after the other,
+  never at the same time. A load never evicts a model a running job is using.
+- Client/CLI: `h3ltx load <model> [--gpus all]`, `h3ltx unload`, and a `--preload` flag on
+  the benchmark matrix runner. That flag loads, waits, then runs the jobs, so every
+  measured job is warm.
+- Tests: with a fake engine, a load followed by a job gives the job `model_load_s == 0` and
+  `warm: true`; a job without a load is cold and is excluded from the default stats.
 
 States: `queued → preparing → running → finalizing → succeeded | failed | cancelled`.
 Jobs survive a restart: on boot, `running` jobs become `failed` with reason
