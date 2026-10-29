@@ -1,0 +1,161 @@
+{
+  "params": {
+    "seed": 11,
+    "force": false,
+    "engine": "comfy",
+    "attention": "sdpa",
+    "text_encoder_offload": "auto",
+    "reuse_conditioning": false,
+    "width": 1280,
+    "height": 704,
+    "aspect_ratio": null,
+    "resolution": null,
+    "prompt": "The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead.",
+    "negative_prompt": "",
+    "frames": 121,
+    "fps": 24,
+    "steps": 8,
+    "cfg": 1,
+    "sampler": "euler_ancestral",
+    "pipeline": "distilled",
+    "temporal_upscale": 0,
+    "hdr": false,
+    "tiled": true,
+    "keyframes": [
+      {
+        "upload_id": "a7e9163974394f2a811c242f8ff54cd3",
+        "kind": "image",
+        "duration_seconds": 0,
+        "frame": 0,
+        "strength": 1.0
+      }
+    ],
+    "weights": "bf16"
+  },
+  "eligible_gpus": [
+    0
+  ],
+  "admission": {
+    "pixels_x_frames": 109035520,
+    "budget": 752716800,
+    "provisional": true,
+    "experimental": false,
+    "forced": false
+  },
+  "models": [
+    {
+      "key": "ltx-2.5-22b-distilled-transformer-bf16",
+      "group": "smoke",
+      "repo": "Lightricks/LTX-2.5",
+      "path": "diffusion_models/ltx-2.5-22b-distilled-transformer-bf16.safetensors",
+      "destination": "diffusion_models/ltx-2.5-22b-distilled-transformer-bf16.safetensors",
+      "size_bytes": 42018190584,
+      "sha256": "31eb3cad89b9e54e99dd3baf286f70825ac4f6c660a70d9184d895be76d7bff4",
+      "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+      "license": "ltx-2.x-community",
+      "gated": true
+    },
+    {
+      "key": "gemma4-12b-with-proj-ltx-2.5-bf16",
+      "group": "smoke",
+      "repo": "Lightricks/LTX-2.5",
+      "path": "text_encoders/gemma4-12b-with-proj-ltx-2.5-bf16.safetensors",
+      "destination": "text_encoders/gemma4-12b-with-proj-ltx-2.5-bf16.safetensors",
+      "size_bytes": 26263858182,
+      "sha256": "ef7243612fdae7a75cb4d5cee9433e81380675fb6c213bd98ae74a9cd16561d1",
+      "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+      "license": "ltx-2.x-community",
+      "gated": true
+    },
+    {
+      "key": "ltx-2.5-video-vae-bf16",
+      "group": "smoke",
+      "repo": "Lightricks/LTX-2.5",
+      "path": "vae/ltx-2.5-video-vae-bf16.safetensors",
+      "destination": "vae/ltx-2.5-video-vae-bf16.safetensors",
+      "size_bytes": 1472223346,
+      "sha256": "847e14ca7f3355debca0cea4eaa24ac0fbcdf0061da054ac89ca638a869ddba3",
+      "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+      "license": "ltx-2.x-community",
+      "gated": true
+    },
+    {
+      "key": "ltx-2.5-audio-vae-bf16",
+      "group": "smoke",
+      "repo": "Lightricks/LTX-2.5",
+      "path": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+      "destination": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+      "size_bytes": 364866540,
+      "sha256": "c52733d37f6a7fb7949c3dc0fb468c6cb2169e4d836983a73babb9f0d54837a5",
+      "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+      "license": "ltx-2.x-community",
+      "gated": true
+    },
+    {
+      "key": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0",
+      "group": "smoke",
+      "repo": "Lightricks/LTX-2.5",
+      "path": "latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+      "destination": "latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+      "size_bytes": 995778752,
+      "sha256": "eb5a71fe4068ee87ccdb1c3aa635e547ca76bd2d30ae20ae889f2c325c0677e8",
+      "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+      "license": "ltx-2.x-community",
+      "gated": true
+    }
+  ],
+  "software": {
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "arches": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ],
+    "bf16": true,
+    "transformers": "5.14.1",
+    "comfy-kitchen": "0.2.40",
+    "comfy-aimdo": "0.6.0",
+    "sageattention": "1.0.6",
+    "av": "19.0.2",
+    "comfy_commit": "e6354106fa0761ea1f40773b9971985dbe51421a",
+    "ltx_commit": "e98f6d927d83c92ef2be6aec76c8440b19306e39",
+    "custom_nodes": {
+      "VideoHelperSuite": "4d907bee61e92c2e65af3bd6383a4e4d356126d1",
+      "H3LatentUpscaler": "40316cf008b2fd8663263270669eb4da23f89d2c",
+      "H3FaceRefine": "d8521d14fe0d721d80cd9417fff5a559cbc21aba"
+    },
+    "h3ltx": "0.1.0",
+    "image_version": "development",
+    "git_sha": "unknown"
+  },
+  "environment": {
+    "SLOTS_PER_GPU": 1,
+    "CUDA_VISIBLE_DEVICES": "0"
+  },
+  "profile": "blackwell-96",
+  "memory_policy": "aggressive offload",
+  "cache_policy": "cache-none",
+  "gpu": {
+    "index": 0,
+    "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "uuid": "GPU-bf8243c8-8596-532e-8e73-984a4c40a4e4",
+    "capability": [
+      12,
+      0
+    ],
+    "total": 102641958912,
+    "used": 667877376,
+    "temperature": 36,
+    "power_watts": 35.716,
+    "utilization": 0.0,
+    "driver": "580.82.07",
+    "nvenc": false
+  },
+  "warm": false,
+  "pipeline": "ltx-distilled",
+  "video_encoder": "libx264"
+}

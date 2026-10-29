@@ -1,0 +1,18 @@
+{
+  "type": "h3.fl2v",
+  "params": {
+    "prompt": "The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead, gentle harbour sounds.",
+    "first_frame": "a7e9163974394f2a811c242f8ff54cd3",
+    "last_frame": "273cf6a70fc74805999eef51ec5e8421",
+    "duration_seconds": 5,
+    "turbo": "none",
+    "seed": 11
+  },
+  "client_request_id": "matrix:smoke-3:e773d4c7929c16ea4533",
+  "priority": 0,
+  "tags": [
+    "smoke-1h",
+    "h3-fl2v-base"
+  ],
+  "post": []
+}

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Smoke test results for MiniMax H3 and LTX 2.5 on one RTX PRO 6000: clips, timings, costs.">
+<title>H3 and LTX smoke test, RTX PRO 6000</title>
+<style>
+/* Hallmark v2.0.0 | genre: modern-minimal | deal: manual (fast mode, single-file report) | shape: long document | signature: the six real clips, playable inline | theme: custom ink-and-paper, one amber signal */
+/* critique: a report, so the clips lead and the numbers are read, not decorated; one accent, no ornament */
+/* waive 58: a data report; the table and the six clip captions carry the measured numbers */
+:root {
+  --paper: #f6f4ef; --ink: #1b1a17; --muted: #5d5a52; --rule: #d9d4c8; --panel: #ffffff; --signal: #b4570f;
+  --font-body: ui-sans-serif, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+  --font-num: ui-monospace, "SF Mono", Menlo, monospace;
+  --s1: 4px; --s2: 8px; --s3: 16px; --s4: 24px; --s5: 40px; --s6: 64px;
+  --radius: 10px; --measure: 1120px;
+}
+html, body { overflow-x: clip; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: var(--measure); margin: 0 auto; padding: var(--s5) var(--s4) var(--s6); }
+h1, h2 { text-wrap: balance; font-weight: 650; letter-spacing: -0.01em; overflow-wrap: break-word; min-width: 0; margin: 0; }
+h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; max-width: 18ch; }
+h2 { font-size: 1.4rem; margin-bottom: var(--s3); }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 60ch; margin: var(--s3) 0 var(--s4); }
+a { color: var(--signal); }
+a:active { color: var(--ink); }
+a:focus-visible, video:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: var(--s4) 0; margin-bottom: var(--s6); }
+.facts div { min-width: 0; }
+.facts b { display: block; font-family: var(--font-num); font-size: 1.6rem; font-weight: 600; color: var(--ink); }
+.facts span { color: var(--muted); font-size: 0.95rem; }
+section { margin-bottom: var(--s6); }
+.clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); }
+.clip { margin: 0; min-width: 0; }
+.clip video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--ink); border-radius: var(--radius); display: block; }
+.clip figcaption { display: grid; gap: 2px; padding-top: var(--s2); font-size: 0.95rem; color: var(--muted); }
+.clip figcaption strong { color: var(--ink); font-weight: 600; }
+.num { font-family: var(--font-num); font-size: 0.9rem; color: var(--ink); }
+.inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); max-width: 640px; }
+.inputs figure { margin: 0; min-width: 0; }
+.inputs img { width: 100%; border-radius: var(--radius); display: block; }
+.inputs figcaption { font-size: 0.9rem; color: var(--muted); padding-top: var(--s1); }
+.table-wrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; font-variant-numeric: tabular-nums; }
+thead th { font-weight: 600; color: var(--muted); font-size: 0.9rem; }
+th[scope=row] { text-align: left; font-weight: 600; }
+th[scope=row] small { display: block; font-weight: 400; color: var(--muted); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+td.strong { color: var(--signal); font-weight: 650; }
+.note { color: var(--muted); font-size: 0.95rem; max-width: 72ch; margin-top: var(--s3); }
+.findings { display: grid; gap: var(--s4); grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; margin: 0; list-style: none; }
+.findings li { min-width: 0; border-top: 2px solid var(--ink); padding-top: var(--s3); }
+.findings li.warn { border-top-color: var(--signal); }
+.findings b { display: block; margin-bottom: var(--s1); }
+.findings p { margin: 0; color: var(--muted); }
+.cost { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); max-width: 640px; }
+.cost div { padding: var(--s2) 0; border-bottom: 1px solid var(--rule); }
+.cost div:nth-child(even) { text-align: right; font-family: var(--font-num); }
+.cost .total { font-weight: 650; border-bottom: 0; }
+footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--rule); padding-top: var(--s4); }
+@media (max-width: 900px) { .clips { grid-template-columns: repeat(2, minmax(0, 1fr)); } .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .findings { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .clips, .inputs { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+  <h1>Both open models run on one GPU</h1>
+  <p class="lede">MiniMax H3 and LTX 2.5, six clips on one RTX PRO 6000.</p>
+</header>
+
+<div class="facts">
+  <div><b>6 of 6</b><span>clips generated</span></div>
+  <div><b>40 s</b><span>fastest 5 s clip (LTX, warm)</span></div>
+  <div><b>53 s</b><span>H3 turbo 5 s clip, warm</span></div>
+  <div><b>$2.15</b><span>whole test, 76 min of GPU</span></div>
+</div>
+
+<section aria-labelledby="clips">
+  <h2 id="clips">The clips</h2>
+  <div class="clips">
+<figure class="clip">
+  <video controls preload="metadata" playsinline poster="media/h3-turbo4-seed11.jpg" src="media/h3-turbo4-seed11.mp4"></video>
+  <figcaption><strong>H3 first/last frame, turbo 4-step</strong><span>Seed 11, cold run. 1152×640, 5.17 s with audio.</span><span class="num">59.3 s to generate, about $0.028</span></figcaption>
+</figure>
+<figure class="clip">
+  <video controls preload="metadata" playsinline poster="media/h3-turbo4-seed12.jpg" src="media/h3-turbo4-seed12.mp4"></video>
+  <figcaption><strong>H3 first/last frame, turbo 4-step</strong><span>Seed 12, warm run. 1152×640, 5.17 s with audio.</span><span class="num">52.9 s to generate, about $0.025</span></figcaption>
+</figure>
+<figure class="clip">
+  <video controls preload="metadata" playsinline poster="media/h3-base20-seed11.jpg" src="media/h3-base20-seed11.mp4"></video>
+  <figcaption><strong>H3 first/last frame, base 20-step</strong><span>Seed 11, warm run. 1152×640, 5.17 s with audio.</span><span class="num">173.9 s to generate, about $0.082</span></figcaption>
+</figure>
+<figure class="clip">
+  <video controls preload="metadata" playsinline poster="media/ltx-t2v-seed11.jpg" src="media/ltx-t2v-seed11.mp4"></video>
+  <figcaption><strong>LTX 2.5 distilled, text to video</strong><span>Seed 11, cold run. 1280×704, 5.04 s with audio.</span><span class="num">54.7 s to generate, about $0.026</span></figcaption>
+</figure>
+<figure class="clip">
+  <video controls preload="metadata" playsinline poster="media/ltx-t2v-seed12.jpg" src="media/ltx-t2v-seed12.mp4"></video>
+  <figcaption><strong>LTX 2.5 distilled, text to video</strong><span>Seed 12, warm run. 1280×704, 5.04 s with audio.</span><span class="num">40.2 s to generate, about $0.019</span></figcaption>
+</figure>
+<figure class="clip">
+  <video controls preload="metadata" playsinline poster="media/ltx-i2v-seed11.jpg" src="media/ltx-i2v-seed11.mp4"></video>
+  <figcaption><strong>LTX 2.5 distilled, image to video</strong><span>Seed 11, warm run. 1280×704, 5.04 s with audio.</span><span class="num">35.8 s to generate, about $0.017</span></figcaption>
+</figure>
+  </div>
+</section>
+
+<section aria-labelledby="inputs">
+  <h2 id="inputs">What went in</h2>
+  <div class="inputs">
+    <figure><img src="media/input-first.png" alt="Fisherman on a pier holding a coiled rope at sunrise"><figcaption>First frame, generated for this test</figcaption></figure>
+    <figure><img src="media/input-last.png" alt="The same fisherman turning toward the camera, tossing the rope onto the dhow"><figcaption>Last frame, used by H3 only</figcaption></figure>
+  </div>
+  <p class="note">H3 used both frames; LTX image to video used the first; LTX text to video used only the prompt.</p>
+</section>
+
+<section aria-labelledby="timing">
+  <h2 id="timing">Where the time goes</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col" style="text-align:left">Run</th><th scope="col">Steps</th><th scope="col">Text encode (s)</th><th scope="col">Sampling (s)</th><th scope="col">Decode (s)</th><th scope="col">Video encode (s)</th><th scope="col">Total (s)</th><th scope="col">Peak GPU memory</th><th scope="col">Video s per GPU min</th><th scope="col">GPU cost</th></tr></thead>
+    <tbody>
+<tr><th scope='row'>H3 first/last frame, turbo 4-step<small>seed 11, cold</small></th><td>4</td><td>5.8</td><td>36.6</td><td>5.6</td><td>9.4</td><td class='strong'>59.3</td><td>51 GB</td><td>5.2</td><td>$0.028</td></tr>
+<tr><th scope='row'>H3 first/last frame, turbo 4-step<small>seed 12, warm</small></th><td>4</td><td>4.5</td><td>30.1</td><td>5.2</td><td>10.2</td><td class='strong'>52.9</td><td>93 GB</td><td>5.9</td><td>$0.025</td></tr>
+<tr><th scope='row'>H3 first/last frame, base 20-step<small>seed 11, warm</small></th><td>20</td><td>5.0</td><td>151.1</td><td>5.4</td><td>9.8</td><td class='strong'>173.9</td><td>93 GB</td><td>1.8</td><td>$0.082</td></tr>
+<tr><th scope='row'>LTX 2.5 distilled, text to video<small>seed 11, cold</small></th><td>8</td><td>8.3</td><td>21.6</td><td>10.9</td><td>10.7</td><td class='strong'>54.7</td><td>67 GB</td><td>5.5</td><td>$0.026</td></tr>
+<tr><th scope='row'>LTX 2.5 distilled, text to video<small>seed 12, warm</small></th><td>8</td><td>7.9</td><td>8.6</td><td>10.7</td><td>10.2</td><td class='strong'>40.2</td><td>90 GB</td><td>7.5</td><td>$0.019</td></tr>
+<tr><th scope='row'>LTX 2.5 distilled, image to video<small>seed 11, warm</small></th><td>8</td><td>4.1</td><td>9.2</td><td>10.2</td><td>9.0</td><td class='strong'>35.8</td><td>90 GB</td><td>8.4</td><td>$0.017</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Total excludes queue wait; cost at $1.69 an hour. A cold first run adds about 6 s (H3) or 14 s (LTX).</p>
+</section>
+
+<section aria-labelledby="findings">
+  <h2 id="findings">What we learned</h2>
+  <ul class="findings">
+    <li><b>LTX is the cheap workhorse</b><p>About 40 s and two cents per warm 5-second clip at 1280×704.</p></li>
+    <li><b>H3 turbo is close behind</b><p>About 53 s per warm clip, landing on the last frame. Base 20-step took 174 s.</p></li>
+    <li class="warn"><b>Load timing did not separate yet</b><p>Preload demanded full GPU residency; H3 BF16 needs about 98 GB, so it failed. Loading happened inside each model’s first job instead. Fix due.</p></li>
+    <li class="warn"><b>Video encoding costs 10 s a clip</b><p>A fifth of each LTX clip’s time; GPU encoding should cut it.</p></li>
+    <li class="warn"><b>Setup ate most of the bill</b><p>171 GB of downloads took 21 minutes, plus installs and restarts. A network volume would pay off quickly.</p></li>
+    <li><b>Two repo bugs fixed during the run</b><p>Placeholder LTX checksums and an outdated uv; both fixes pushed.</p></li>
+  </ul>
+</section>
+
+<section aria-labelledby="cost">
+  <h2 id="cost">What the test cost</h2>
+  <div class="cost">
+    <div>Pod time, 76 minutes at $1.69 an hour</div><div>$2.15</div>
+    <div>Of which: generating the six clips</div><div>about $0.20</div>
+    <div>Of which: install, downloads, failed runs and fixes</div><div>about $1.95</div>
+    <div class="total">Disk storage while the pod existed</div><div class="total">billed by Runpod, small</div>
+  </div>
+</section>
+
+<footer>
+  <p>Pod: RTX PRO 6000 Blackwell Server Edition, 96 GB, community cloud, driver 580.82. Models: H3 pruned BF16 with the 4-step turbo LoRA; LTX 2.5 22B distilled BF16. Run records are in records/ and the clips in media/. Code: <a href="https://github.com/Mohamad-Abdulkadir/h3-ltx-container">h3-ltx-container on GitHub</a>.</p>
+</footer>
+</main>
+</body>
+</html>

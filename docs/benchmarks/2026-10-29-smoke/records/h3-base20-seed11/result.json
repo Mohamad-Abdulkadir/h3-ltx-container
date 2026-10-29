@@ -1,0 +1,18 @@
+{
+  "state": "succeeded",
+  "error": null,
+  "outputs": [
+    {
+      "width": 1152,
+      "height": 640,
+      "name": "b5c57881d78f4930b29f2943dad88997_00001_.mp4",
+      "bytes": 1901935,
+      "sha256": "1e9eee0088b4e631d9a9f518471e2fa4d0de4b2620d886e9539f61d687458ed1",
+      "duration_seconds": 5.167
+    }
+  ],
+  "wall_seconds": 173.91942377609666,
+  "model_load_s": 0.7653122290503234,
+  "warm": false,
+  "cost_estimate_usd": 0.08207208923622125
+}

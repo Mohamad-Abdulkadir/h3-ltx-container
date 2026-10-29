@@ -1,0 +1,15 @@
+{
+  "type": "ltx.t2v",
+  "params": {
+    "prompt": "A fishing harbour in the Arabian Gulf at golden sunrise, wooden dhows rocking gently, a fisherman in a white thobe coils rope on the pier, gulls and soft waves.",
+    "frames": 121,
+    "seed": 12
+  },
+  "client_request_id": "matrix:smoke-3:6b87bea86d67083ae710",
+  "priority": 0,
+  "tags": [
+    "smoke-1h",
+    "ltx-t2v-distilled"
+  ],
+  "post": []
+}

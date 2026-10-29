@@ -1,0 +1,135 @@
+{
+  "groups": [
+    {
+      "model": "h3-fl2v-turbo4",
+      "profile": "blackwell-96",
+      "resolution": "1152x640",
+      "duration": 5.0,
+      "steps": 4,
+      "engine": "comfy",
+      "cached": false,
+      "operation": "generation",
+      "count": 2,
+      "success_rate": 1.0,
+      "wall_seconds": {
+        "p50": null,
+        "p90": null,
+        "max": null
+      },
+      "stage_medians": {},
+      "peak_vram_bytes": 100228268032.0,
+      "peak_ram_bytes": 124999356416.0,
+      "cost_estimate_usd": 0.055370019400224554,
+      "output_seconds_per_gpu_minute": 0,
+      "cached_runs": 0,
+      "cold_runs_excluded": 2,
+      "load_seconds": {
+        "p50": 2.638305369997397,
+        "p90": 3.762941738078371
+      },
+      "timings_incomplete_runs": 0
+    },
+    {
+      "model": "h3-fl2v",
+      "profile": "blackwell-96",
+      "resolution": "1152x640",
+      "duration": 5.0,
+      "steps": 20,
+      "engine": "comfy",
+      "cached": false,
+      "operation": "generation",
+      "count": 1,
+      "success_rate": 1.0,
+      "wall_seconds": {
+        "p50": null,
+        "p90": null,
+        "max": null
+      },
+      "stage_medians": {},
+      "peak_vram_bytes": 100228268032.0,
+      "peak_ram_bytes": 124932485120.0,
+      "cost_estimate_usd": 0.08207208923622125,
+      "output_seconds_per_gpu_minute": 0,
+      "cached_runs": 0,
+      "cold_runs_excluded": 1,
+      "load_seconds": {
+        "p50": 0.7653122290503234,
+        "p90": 0.7653122290503234
+      },
+      "timings_incomplete_runs": 0
+    },
+    {
+      "model": "ltx-distilled",
+      "profile": "blackwell-96",
+      "resolution": "1280x704",
+      "duration": 5.041666666666667,
+      "steps": 8,
+      "engine": "comfy",
+      "cached": false,
+      "operation": "generation",
+      "count": 3,
+      "success_rate": 1.0,
+      "wall_seconds": {
+        "p50": null,
+        "p90": null,
+        "max": null
+      },
+      "stage_medians": {},
+      "peak_vram_bytes": 96541474816.0,
+      "peak_ram_bytes": 124999987200.0,
+      "cost_estimate_usd": 0.06940435432697867,
+      "output_seconds_per_gpu_minute": 0,
+      "cached_runs": 0,
+      "cold_runs_excluded": 3,
+      "load_seconds": {
+        "p50": 1.538655094918795,
+        "p90": 11.267021618993022
+      },
+      "timings_incomplete_runs": 0
+    }
+  ],
+  "cost_rate_usd_per_gpu_hour": 1.69,
+  "hardware": [
+    {
+      "index": 0,
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "uuid": "GPU-bf8243c8-8596-532e-8e73-984a4c40a4e4",
+      "capability": [
+        12,
+        0
+      ],
+      "total": 102641958912,
+      "used": 667877376,
+      "temperature": 36,
+      "power_watts": 35.716,
+      "utilization": 0.0,
+      "driver": "580.82.07",
+      "nvenc": false
+    }
+  ],
+  "software": {
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "arches": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ],
+    "bf16": true,
+    "transformers": "5.14.1",
+    "comfy-kitchen": "0.2.40",
+    "comfy-aimdo": "0.6.0",
+    "sageattention": "1.0.6",
+    "av": "19.0.2",
+    "comfy_commit": "e6354106fa0761ea1f40773b9971985dbe51421a",
+    "ltx_commit": "e98f6d927d83c92ef2be6aec76c8440b19306e39",
+    "custom_nodes": {
+      "VideoHelperSuite": "4d907bee61e92c2e65af3bd6383a4e4d356126d1",
+      "H3LatentUpscaler": "40316cf008b2fd8663263270669eb4da23f89d2c",
+      "H3FaceRefine": "d8521d14fe0d721d80cd9417fff5a559cbc21aba"
+    }
+  }
+}

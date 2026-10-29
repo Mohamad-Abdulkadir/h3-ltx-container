@@ -1,0 +1,242 @@
+{
+  "stages": {
+    "queue_wait": 63.816340923309326,
+    "input_staging": 0.007080793962813914,
+    "conditioning": 0.16019237996079028,
+    "text_encode": 4.515757407061756,
+    "sampling": 30.08496346604079,
+    "vae_decode": 5.187428239034489,
+    "video_encode": 10.217273524962366,
+    "finalization": 2.6871227400843054
+  },
+  "cached_nodes": [],
+  "model_load_s": 1.23250990989618,
+  "warm": false,
+  "cache_proof": {
+    "before": {
+      "pipelines": {
+        "h3-fl2v-turbo4": {
+          "resident": false,
+          "components": [
+            {
+              "bytes": 40225672192,
+              "gpu_bytes": 40333630464,
+              "resident": true
+            },
+            {
+              "bytes": 40225672192,
+              "gpu_bytes": 40333630464,
+              "resident": true
+            },
+            {
+              "bytes": 40225672192,
+              "gpu_bytes": 40333630464,
+              "resident": true
+            },
+            {
+              "bytes": 51506191844,
+              "gpu_bytes": 1303112,
+              "resident": false
+            },
+            {
+              "bytes": 5207742160,
+              "gpu_bytes": 5234852748,
+              "resident": true
+            },
+            {
+              "bytes": 605149280,
+              "gpu_bytes": 436759648,
+              "resident": false
+            }
+          ]
+        }
+      },
+      "cached_objects": 6,
+      "loader_reads": 5,
+      "loader_read_s": 1.863207467016764
+    },
+    "after": {
+      "pipelines": {
+        "h3-fl2v-turbo4": {
+          "resident": false,
+          "components": [
+            {
+              "bytes": 40225672192,
+              "gpu_bytes": 40333630464,
+              "resident": true
+            },
+            {
+              "bytes": 40225672192,
+              "gpu_bytes": 40333630464,
+              "resident": true
+            },
+            {
+              "bytes": 40225672192,
+              "gpu_bytes": 40333630464,
+              "resident": true
+            },
+            {
+              "bytes": 51506191844,
+              "gpu_bytes": 0,
+              "resident": false
+            },
+            {
+              "bytes": 5207742160,
+              "gpu_bytes": 5234852748,
+              "resident": true
+            },
+            {
+              "bytes": 605149280,
+              "gpu_bytes": 436759648,
+              "resident": false
+            }
+          ]
+        }
+      },
+      "cached_objects": 6,
+      "loader_reads": 5,
+      "loader_read_s": 1.863207467016764
+    }
+  },
+  "loader_node_overhead_s": 0.00433970894664526,
+  "nodes": [
+    {
+      "node": "6",
+      "class_type": "VAELoader",
+      "stage": "model_load",
+      "seconds": 0.0008434760384261608
+    },
+    {
+      "node": "9",
+      "class_type": "LoadImage",
+      "stage": "conditioning",
+      "seconds": 0.06277031498029828
+    },
+    {
+      "node": "8",
+      "class_type": "LoadImage",
+      "stage": "conditioning",
+      "seconds": 0.09178747795522213
+    },
+    {
+      "node": "7",
+      "class_type": "ComfyMathExpression",
+      "stage": "conditioning",
+      "seconds": 0.0009365840815007687
+    },
+    {
+      "node": "5",
+      "class_type": "VAELoader",
+      "stage": "model_load",
+      "seconds": 0.00037108396645635366
+    },
+    {
+      "node": "4",
+      "class_type": "CLIPLoader",
+      "stage": "model_load",
+      "seconds": 0.00031330494675785303
+    },
+    {
+      "node": "10",
+      "class_type": "MiniMaxH3ImageToVideo",
+      "stage": "text_encode",
+      "seconds": 4.515757407061756
+    },
+    {
+      "node": "1",
+      "class_type": "UNETLoader",
+      "stage": "model_load",
+      "seconds": 0.001495735952630639
+    },
+    {
+      "node": "2",
+      "class_type": "MiniMaxH3SigmaShift",
+      "stage": "conditioning",
+      "seconds": 0.001705661998130381
+    },
+    {
+      "node": "3",
+      "class_type": "LoraLoaderModelOnly",
+      "stage": "model_load",
+      "seconds": 0.0013161080423742533
+    },
+    {
+      "node": "12",
+      "class_type": "BasicScheduler",
+      "stage": "conditioning",
+      "seconds": 0.0007109879516065121
+    },
+    {
+      "node": "14",
+      "class_type": "KSamplerSelect",
+      "stage": "conditioning",
+      "seconds": 0.00048776203766465187
+    },
+    {
+      "node": "11",
+      "class_type": "BasicGuider",
+      "stage": "conditioning",
+      "seconds": 0.0003493339754641056
+    },
+    {
+      "node": "13",
+      "class_type": "RandomNoise",
+      "stage": "conditioning",
+      "seconds": 0.0014442569809034467
+    },
+    {
+      "node": "15",
+      "class_type": "SamplerCustomAdvanced",
+      "stage": "sampling",
+      "seconds": 30.08496346604079
+    },
+    {
+      "node": "17",
+      "class_type": "VAEDecodeAudio",
+      "stage": "vae_decode",
+      "seconds": 0.11005836597178131
+    },
+    {
+      "node": "16",
+      "class_type": "VAEDecode",
+      "stage": "vae_decode",
+      "seconds": 5.0773698730627075
+    },
+    {
+      "node": "18",
+      "class_type": "CreateVideo",
+      "stage": "video_encode",
+      "seconds": 0.0012364699505269527
+    },
+    {
+      "node": "19",
+      "class_type": "SaveVideo",
+      "stage": "video_encode",
+      "seconds": 10.216037055011839
+    }
+  ],
+  "sampling_steps": [
+    {
+      "node": "15",
+      "step": 1,
+      "seconds": null
+    },
+    {
+      "node": "15",
+      "step": 2,
+      "seconds": 5.994937121984549
+    },
+    {
+      "node": "15",
+      "step": 3,
+      "seconds": 7.049749011057429
+    },
+    {
+      "node": "15",
+      "step": 4,
+      "seconds": 7.074688180000521
+    }
+  ],
+  "timing_source": "ComfyUI websocket execution events; receipt timestamps where server timestamps absent",
+  "generation_wall_seconds": 52.87468343693763
+}

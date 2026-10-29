@@ -1,0 +1,143 @@
+{
+  "params": {
+    "seed": 11,
+    "force": false,
+    "engine": "comfy",
+    "attention": "sdpa",
+    "text_encoder_offload": "auto",
+    "reuse_conditioning": false,
+    "width": 1152,
+    "height": 640,
+    "aspect_ratio": null,
+    "resolution": null,
+    "prompt": "The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead, gentle harbour sounds.",
+    "duration_seconds": 5.0,
+    "steps": 20,
+    "sampler": "res_multistep",
+    "scheduler": "simple",
+    "shift": 12,
+    "turbo": "none",
+    "turbo_version": "default",
+    "weights": "pruned-bf16",
+    "latent_upscale": "off",
+    "refine_steps": 6,
+    "first_frame": "a7e9163974394f2a811c242f8ff54cd3",
+    "last_frame": "273cf6a70fc74805999eef51ec5e8421",
+    "references": [],
+    "guides": []
+  },
+  "eligible_gpus": [
+    0
+  ],
+  "admission": {
+    "pixels_x_frames": 91422720,
+    "budget": 266158080,
+    "provisional": true,
+    "experimental": false,
+    "forced": false
+  },
+  "models": [
+    {
+      "key": "minimax_h3_fl2va_pruned_bf16",
+      "group": "smoke",
+      "repo": "Comfy-Org/MiniMax-H3",
+      "path": "diffusion_models/minimax_h3_fl2va_pruned_bf16.safetensors",
+      "destination": "diffusion_models/minimax_h3_fl2va_pruned_bf16.safetensors",
+      "size_bytes": 40225724176,
+      "sha256": "a32572fb90b5508b201ec7c2eddcc184b13ddfd3c6f6d2cf06a0b46535d541b4",
+      "revision": "e5eb578a89295337b8ff433a035929ce0279e0b6",
+      "license": "minimax-h3-community",
+      "gated": false
+    },
+    {
+      "key": "qwen3vl_32b_minimax_h3_bf16",
+      "group": "smoke",
+      "repo": "Comfy-Org/MiniMax-H3",
+      "path": "text_encoders/qwen3vl_32b_minimax_h3_bf16.safetensors",
+      "destination": "text_encoders/qwen3vl_32b_minimax_h3_bf16.safetensors",
+      "size_bytes": 51506295256,
+      "sha256": "600d567f6a9629c8574e8e7041b199bdd9c59a986afa7906910a81919610607d",
+      "revision": "e5eb578a89295337b8ff433a035929ce0279e0b6",
+      "license": "minimax-h3-community",
+      "gated": false
+    },
+    {
+      "key": "minimax_h3_video_vae_fp16",
+      "group": "smoke",
+      "repo": "Comfy-Org/MiniMax-H3",
+      "path": "vae/minimax_h3_video_vae_fp16.safetensors",
+      "destination": "vae/minimax_h3_video_vae_fp16.safetensors",
+      "size_bytes": 5207808496,
+      "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+      "revision": "e5eb578a89295337b8ff433a035929ce0279e0b6",
+      "license": "minimax-h3-community",
+      "gated": false
+    },
+    {
+      "key": "minimax_h3_audio_vae_fp32",
+      "group": "smoke",
+      "repo": "Comfy-Org/MiniMax-H3",
+      "path": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "destination": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "size_bytes": 605254808,
+      "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+      "revision": "e5eb578a89295337b8ff433a035929ce0279e0b6",
+      "license": "minimax-h3-community",
+      "gated": false
+    }
+  ],
+  "software": {
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "arches": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ],
+    "bf16": true,
+    "transformers": "5.14.1",
+    "comfy-kitchen": "0.2.40",
+    "comfy-aimdo": "0.6.0",
+    "sageattention": "1.0.6",
+    "av": "19.0.2",
+    "comfy_commit": "e6354106fa0761ea1f40773b9971985dbe51421a",
+    "ltx_commit": "e98f6d927d83c92ef2be6aec76c8440b19306e39",
+    "custom_nodes": {
+      "VideoHelperSuite": "4d907bee61e92c2e65af3bd6383a4e4d356126d1",
+      "H3LatentUpscaler": "40316cf008b2fd8663263270669eb4da23f89d2c",
+      "H3FaceRefine": "d8521d14fe0d721d80cd9417fff5a559cbc21aba"
+    },
+    "h3ltx": "0.1.0",
+    "image_version": "development",
+    "git_sha": "unknown"
+  },
+  "environment": {
+    "SLOTS_PER_GPU": 1,
+    "CUDA_VISIBLE_DEVICES": "0"
+  },
+  "profile": "blackwell-96",
+  "memory_policy": "aggressive offload",
+  "cache_policy": "cache-none",
+  "gpu": {
+    "index": 0,
+    "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "uuid": "GPU-bf8243c8-8596-532e-8e73-984a4c40a4e4",
+    "capability": [
+      12,
+      0
+    ],
+    "total": 102641958912,
+    "used": 667877376,
+    "temperature": 36,
+    "power_watts": 35.716,
+    "utilization": 0.0,
+    "driver": "580.82.07",
+    "nvenc": false
+  },
+  "warm": false,
+  "pipeline": "h3-fl2v",
+  "video_encoder": "libx264"
+}

@@ -1,0 +1,22 @@
+{
+  "type": "ltx.i2v",
+  "params": {
+    "prompt": "The fisherman turns toward the camera and tosses the coiled rope onto the dhow deck; gulls fly overhead.",
+    "keyframes": [
+      {
+        "upload_id": "a7e9163974394f2a811c242f8ff54cd3",
+        "frame": 0,
+        "strength": 1
+      }
+    ],
+    "frames": 121,
+    "seed": 11
+  },
+  "client_request_id": "matrix:smoke-3:7e4dabd22ad309c2681a",
+  "priority": 0,
+  "tags": [
+    "smoke-1h",
+    "ltx-i2v-distilled"
+  ],
+  "post": []
+}

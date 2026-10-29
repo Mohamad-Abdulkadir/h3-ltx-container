@@ -1,5 +1,7 @@
 # Benchmarks
 
+> **Latest intermediate result:** [smoke test, 2026-10-29](benchmarks/2026-10-29-smoke/README.md). On an RTX PRO 6000 a warm 5-second clip takes about 40 s with LTX 2.5 distilled, 53 s with H3 turbo-4 and 174 s with H3 base. The full benchmark below has not run yet.
+
 Generated: 2026-10-29
 
 These figures come from the supplied run records. No GPU measurements are invented.

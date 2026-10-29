@@ -1,0 +1,1113 @@
+{
+  "sample_interval_seconds": 0.5,
+  "sample_count": 137,
+  "samples": [
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 98.457,
+      "temperature_c": 63.0,
+      "timestamp": 1793241342.1735659,
+      "ram_bytes": 123608260608.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 98.457,
+      "temperature_c": 63.0,
+      "timestamp": 1793241342.6862113,
+      "ram_bytes": 123955695616.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 97.873,
+      "temperature_c": 63.0,
+      "timestamp": 1793241343.1878781,
+      "ram_bytes": 124539817984.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 97.873,
+      "temperature_c": 63.0,
+      "timestamp": 1793241343.6883297,
+      "ram_bytes": 123772022784.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 97.627,
+      "temperature_c": 62.0,
+      "timestamp": 1793241344.18975,
+      "ram_bytes": 124449509376.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 97.627,
+      "temperature_c": 62.0,
+      "timestamp": 1793241344.6964846,
+      "ram_bytes": 124664819712.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 96.676,
+      "temperature_c": 61.0,
+      "timestamp": 1793241345.1972167,
+      "ram_bytes": 124996333568.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 96.676,
+      "temperature_c": 61.0,
+      "timestamp": 1793241345.698141,
+      "ram_bytes": 124997644288.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 96.027,
+      "temperature_c": 61.0,
+      "timestamp": 1793241346.1992016,
+      "ram_bytes": 124997120000.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 96.027,
+      "temperature_c": 61.0,
+      "timestamp": 1793241346.7010531,
+      "ram_bytes": 124998311936.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 95.753,
+      "temperature_c": 60.0,
+      "timestamp": 1793241347.2025354,
+      "ram_bytes": 124982300672.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 95.753,
+      "temperature_c": 60.0,
+      "timestamp": 1793241347.7866364,
+      "ram_bytes": 124960747520.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 95.26,
+      "temperature_c": 60.0,
+      "timestamp": 1793241348.2874966,
+      "ram_bytes": 124956151808.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 95.26,
+      "temperature_c": 60.0,
+      "timestamp": 1793241348.789154,
+      "ram_bytes": 124743737344.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 94.864,
+      "temperature_c": 59.0,
+      "timestamp": 1793241349.2912233,
+      "ram_bytes": 124419698688.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 94.465,
+      "temperature_c": 59.0,
+      "timestamp": 1793241349.7925005,
+      "ram_bytes": 124404080640.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 94.465,
+      "temperature_c": 59.0,
+      "timestamp": 1793241350.2941642,
+      "ram_bytes": 124776759296.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 93.544,
+      "temperature_c": 59.0,
+      "timestamp": 1793241350.7959414,
+      "ram_bytes": 124987977728.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 93.544,
+      "temperature_c": 58.0,
+      "timestamp": 1793241351.2984247,
+      "ram_bytes": 124986822656.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 92.923,
+      "temperature_c": 58.0,
+      "timestamp": 1793241351.8000638,
+      "ram_bytes": 124850876416.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 92.923,
+      "temperature_c": 58.0,
+      "timestamp": 1793241352.3016956,
+      "ram_bytes": 124956790784.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 92.545,
+      "temperature_c": 58.0,
+      "timestamp": 1793241352.8024256,
+      "ram_bytes": 124865372160.0
+    },
+    {
+      "vram_bytes": 47514255360.0,
+      "utilization": 0.0,
+      "power_watts": 92.796,
+      "temperature_c": 57.0,
+      "timestamp": 1793241353.3032393,
+      "ram_bytes": 124872736768.0
+    },
+    {
+      "vram_bytes": 32448315392.0,
+      "utilization": 0.0,
+      "power_watts": 93.862,
+      "temperature_c": 57.0,
+      "timestamp": 1793241353.886616,
+      "ram_bytes": 124943564800.0
+    },
+    {
+      "vram_bytes": 25603211264.0,
+      "utilization": 18.0,
+      "power_watts": 97.796,
+      "temperature_c": 57.0,
+      "timestamp": 1793241354.387348,
+      "ram_bytes": 124161978368.0
+    },
+    {
+      "vram_bytes": 26207191040.0,
+      "utilization": 3.0,
+      "power_watts": 97.895,
+      "temperature_c": 57.0,
+      "timestamp": 1793241354.8892562,
+      "ram_bytes": 123990028288.0
+    },
+    {
+      "vram_bytes": 26207191040.0,
+      "utilization": 0.0,
+      "power_watts": 94.252,
+      "temperature_c": 57.0,
+      "timestamp": 1793241355.3904684,
+      "ram_bytes": 123992117248.0
+    },
+    {
+      "vram_bytes": 25200558080.0,
+      "utilization": 0.0,
+      "power_watts": 93.853,
+      "temperature_c": 56.0,
+      "timestamp": 1793241355.8914359,
+      "ram_bytes": 123993464832.0
+    },
+    {
+      "vram_bytes": 27213824000.0,
+      "utilization": 16.0,
+      "power_watts": 93.786,
+      "temperature_c": 56.0,
+      "timestamp": 1793241356.3930376,
+      "ram_bytes": 124975755264.0
+    },
+    {
+      "vram_bytes": 29998841856.0,
+      "utilization": 19.0,
+      "power_watts": 104.725,
+      "temperature_c": 56.0,
+      "timestamp": 1793241356.895193,
+      "ram_bytes": 124989210624.0
+    },
+    {
+      "vram_bytes": 32649641984.0,
+      "utilization": 23.0,
+      "power_watts": 121.932,
+      "temperature_c": 57.0,
+      "timestamp": 1793241357.3970351,
+      "ram_bytes": 124931059712.0
+    },
+    {
+      "vram_bytes": 34897788928.0,
+      "utilization": 23.0,
+      "power_watts": 129.029,
+      "temperature_c": 56.0,
+      "timestamp": 1793241357.898989,
+      "ram_bytes": 124975280128.0
+    },
+    {
+      "vram_bytes": 37213044736.0,
+      "utilization": 21.0,
+      "power_watts": 127.756,
+      "temperature_c": 56.0,
+      "timestamp": 1793241358.4005916,
+      "ram_bytes": 124979240960.0
+    },
+    {
+      "vram_bytes": 39427637248.0,
+      "utilization": 22.0,
+      "power_watts": 121.256,
+      "temperature_c": 56.0,
+      "timestamp": 1793241358.90158,
+      "ram_bytes": 124999864320.0
+    },
+    {
+      "vram_bytes": 41642229760.0,
+      "utilization": 23.0,
+      "power_watts": 119.492,
+      "temperature_c": 56.0,
+      "timestamp": 1793241359.4025378,
+      "ram_bytes": 124941221888.0
+    },
+    {
+      "vram_bytes": 44024594432.0,
+      "utilization": 24.0,
+      "power_watts": 124.429,
+      "temperature_c": 56.0,
+      "timestamp": 1793241359.9035642,
+      "ram_bytes": 124970868736.0
+    },
+    {
+      "vram_bytes": 46474067968.0,
+      "utilization": 25.0,
+      "power_watts": 125.7,
+      "temperature_c": 56.0,
+      "timestamp": 1793241360.4049954,
+      "ram_bytes": 124986826752.0
+    },
+    {
+      "vram_bytes": 48856432640.0,
+      "utilization": 26.0,
+      "power_watts": 126.136,
+      "temperature_c": 56.0,
+      "timestamp": 1793241360.9071438,
+      "ram_bytes": 124973080576.0
+    },
+    {
+      "vram_bytes": 50433490944.0,
+      "utilization": 6.0,
+      "power_watts": 124.697,
+      "temperature_c": 55.0,
+      "timestamp": 1793241361.4091828,
+      "ram_bytes": 124987162624.0
+    },
+    {
+      "vram_bytes": 52111212544.0,
+      "utilization": 1.0,
+      "power_watts": 113.074,
+      "temperature_c": 54.0,
+      "timestamp": 1793241361.9175212,
+      "ram_bytes": 124999434240.0
+    },
+    {
+      "vram_bytes": 52111212544.0,
+      "utilization": 1.0,
+      "power_watts": 94.032,
+      "temperature_c": 54.0,
+      "timestamp": 1793241362.4186857,
+      "ram_bytes": 124222058496.0
+    },
+    {
+      "vram_bytes": 54392913920.0,
+      "utilization": 7.0,
+      "power_watts": 92.291,
+      "temperature_c": 54.0,
+      "timestamp": 1793241362.919533,
+      "ram_bytes": 124972875776.0
+    },
+    {
+      "vram_bytes": 52614529024.0,
+      "utilization": 100.0,
+      "power_watts": 177.678,
+      "temperature_c": 62.0,
+      "timestamp": 1793241363.4208863,
+      "ram_bytes": 124987240448.0
+    },
+    {
+      "vram_bytes": 53520498688.0,
+      "utilization": 3.0,
+      "power_watts": 271.673,
+      "temperature_c": 56.0,
+      "timestamp": 1793241363.9217148,
+      "ram_bytes": 124979249152.0
+    },
+    {
+      "vram_bytes": 50097946624.0,
+      "utilization": 4.0,
+      "power_watts": 231.357,
+      "temperature_c": 55.0,
+      "timestamp": 1793241364.423431,
+      "ram_bytes": 124203159552.0
+    },
+    {
+      "vram_bytes": 25502547968.0,
+      "utilization": 6.0,
+      "power_watts": 99.552,
+      "temperature_c": 54.0,
+      "timestamp": 1793241364.925274,
+      "ram_bytes": 124314415104.0
+    },
+    {
+      "vram_bytes": 27683586048.0,
+      "utilization": 11.0,
+      "power_watts": 99.962,
+      "temperature_c": 54.0,
+      "timestamp": 1793241365.4268346,
+      "ram_bytes": 124990427136.0
+    },
+    {
+      "vram_bytes": 29430513664.0,
+      "utilization": 8.0,
+      "power_watts": 97.905,
+      "temperature_c": 54.0,
+      "timestamp": 1793241365.9285827,
+      "ram_bytes": 124977037312.0
+    },
+    {
+      "vram_bytes": 31007571968.0,
+      "utilization": 8.0,
+      "power_watts": 94.834,
+      "temperature_c": 53.0,
+      "timestamp": 1793241366.4292438,
+      "ram_bytes": 124980629504.0
+    },
+    {
+      "vram_bytes": 32928563200.0,
+      "utilization": 9.0,
+      "power_watts": 98.549,
+      "temperature_c": 53.0,
+      "timestamp": 1793241366.9305775,
+      "ram_bytes": 124917608448.0
+    },
+    {
+      "vram_bytes": 34908274688.0,
+      "utilization": 16.0,
+      "power_watts": 102.976,
+      "temperature_c": 53.0,
+      "timestamp": 1793241367.43187,
+      "ram_bytes": 124956311552.0
+    },
+    {
+      "vram_bytes": 36820877312.0,
+      "utilization": 9.0,
+      "power_watts": 100.42,
+      "temperature_c": 53.0,
+      "timestamp": 1793241367.9332106,
+      "ram_bytes": 124903411712.0
+    },
+    {
+      "vram_bytes": 38330826752.0,
+      "utilization": 17.0,
+      "power_watts": 98.075,
+      "temperature_c": 53.0,
+      "timestamp": 1793241368.4343605,
+      "ram_bytes": 124972101632.0
+    },
+    {
+      "vram_bytes": 39538786304.0,
+      "utilization": 8.0,
+      "power_watts": 95.202,
+      "temperature_c": 53.0,
+      "timestamp": 1793241368.9357448,
+      "ram_bytes": 124958752768.0
+    },
+    {
+      "vram_bytes": 41182953472.0,
+      "utilization": 17.0,
+      "power_watts": 107.632,
+      "temperature_c": 53.0,
+      "timestamp": 1793241369.4370868,
+      "ram_bytes": 124997431296.0
+    },
+    {
+      "vram_bytes": 42760011776.0,
+      "utilization": 9.0,
+      "power_watts": 112.593,
+      "temperature_c": 52.0,
+      "timestamp": 1793241369.938395,
+      "ram_bytes": 124962869248.0
+    },
+    {
+      "vram_bytes": 44404178944.0,
+      "utilization": 19.0,
+      "power_watts": 99.692,
+      "temperature_c": 52.0,
+      "timestamp": 1793241370.440085,
+      "ram_bytes": 124964978688.0
+    },
+    {
+      "vram_bytes": 46014791680.0,
+      "utilization": 15.0,
+      "power_watts": 102.661,
+      "temperature_c": 52.0,
+      "timestamp": 1793241370.9416072,
+      "ram_bytes": 124959948800.0
+    },
+    {
+      "vram_bytes": 47424077824.0,
+      "utilization": 13.0,
+      "power_watts": 105.744,
+      "temperature_c": 54.0,
+      "timestamp": 1793241371.4430587,
+      "ram_bytes": 124978606080.0
+    },
+    {
+      "vram_bytes": 49101799424.0,
+      "utilization": 19.0,
+      "power_watts": 103.925,
+      "temperature_c": 52.0,
+      "timestamp": 1793241371.943386,
+      "ram_bytes": 124984139776.0
+    },
+    {
+      "vram_bytes": 50712412160.0,
+      "utilization": 11.0,
+      "power_watts": 103.027,
+      "temperature_c": 52.0,
+      "timestamp": 1793241372.4446428,
+      "ram_bytes": 124990001152.0
+    },
+    {
+      "vram_bytes": 52255916032.0,
+      "utilization": 19.0,
+      "power_watts": 105.127,
+      "temperature_c": 52.0,
+      "timestamp": 1793241372.9461246,
+      "ram_bytes": 124974379008.0
+    },
+    {
+      "vram_bytes": 53732311040.0,
+      "utilization": 10.0,
+      "power_watts": 99.148,
+      "temperature_c": 52.0,
+      "timestamp": 1793241373.4474196,
+      "ram_bytes": 124955205632.0
+    },
+    {
+      "vram_bytes": 55175151616.0,
+      "utilization": 18.0,
+      "power_watts": 105.747,
+      "temperature_c": 51.0,
+      "timestamp": 1793241373.9489512,
+      "ram_bytes": 124995022848.0
+    },
+    {
+      "vram_bytes": 56886427648.0,
+      "utilization": 17.0,
+      "power_watts": 121.985,
+      "temperature_c": 51.0,
+      "timestamp": 1793241374.4494247,
+      "ram_bytes": 124949893120.0
+    },
+    {
+      "vram_bytes": 58564149248.0,
+      "utilization": 11.0,
+      "power_watts": 117.787,
+      "temperature_c": 51.0,
+      "timestamp": 1793241374.9509535,
+      "ram_bytes": 124995878912.0
+    },
+    {
+      "vram_bytes": 60074098688.0,
+      "utilization": 17.0,
+      "power_watts": 102.513,
+      "temperature_c": 51.0,
+      "timestamp": 1793241375.4513252,
+      "ram_bytes": 124964188160.0
+    },
+    {
+      "vram_bytes": 61550493696.0,
+      "utilization": 10.0,
+      "power_watts": 101.882,
+      "temperature_c": 51.0,
+      "timestamp": 1793241375.9603643,
+      "ram_bytes": 124994420736.0
+    },
+    {
+      "vram_bytes": 62892670976.0,
+      "utilization": 18.0,
+      "power_watts": 105.393,
+      "temperature_c": 52.0,
+      "timestamp": 1793241376.4619296,
+      "ram_bytes": 124975656960.0
+    },
+    {
+      "vram_bytes": 64436174848.0,
+      "utilization": 13.0,
+      "power_watts": 105.701,
+      "temperature_c": 51.0,
+      "timestamp": 1793241376.9623508,
+      "ram_bytes": 124973711360.0
+    },
+    {
+      "vram_bytes": 65979678720.0,
+      "utilization": 18.0,
+      "power_watts": 97.581,
+      "temperature_c": 51.0,
+      "timestamp": 1793241377.4638708,
+      "ram_bytes": 124935421952.0
+    },
+    {
+      "vram_bytes": 67489628160.0,
+      "utilization": 9.0,
+      "power_watts": 109.152,
+      "temperature_c": 55.0,
+      "timestamp": 1793241377.9644296,
+      "ram_bytes": 124993171456.0
+    },
+    {
+      "vram_bytes": 67858726912.0,
+      "utilization": 98.0,
+      "power_watts": 237.347,
+      "temperature_c": 64.0,
+      "timestamp": 1793241378.465827,
+      "ram_bytes": 124930703360.0
+    },
+    {
+      "vram_bytes": 67858726912.0,
+      "utilization": 99.0,
+      "power_watts": 472.759,
+      "temperature_c": 61.0,
+      "timestamp": 1793241378.9664307,
+      "ram_bytes": 124930854912.0
+    },
+    {
+      "vram_bytes": 67858726912.0,
+      "utilization": 98.0,
+      "power_watts": 578.364,
+      "temperature_c": 67.0,
+      "timestamp": 1793241379.4673858,
+      "ram_bytes": 124930904064.0
+    },
+    {
+      "vram_bytes": 67858726912.0,
+      "utilization": 99.0,
+      "power_watts": 581.685,
+      "temperature_c": 67.0,
+      "timestamp": 1793241379.968829,
+      "ram_bytes": 124930666496.0
+    },
+    {
+      "vram_bytes": 67858726912.0,
+      "utilization": 93.0,
+      "power_watts": 594.016,
+      "temperature_c": 67.0,
+      "timestamp": 1793241380.4695945,
+      "ram_bytes": 124930928640.0
+    },
+    {
+      "vram_bytes": 68689199104.0,
+      "utilization": 0.0,
+      "power_watts": 478.414,
+      "temperature_c": 56.0,
+      "timestamp": 1793241380.9707477,
+      "ram_bytes": 124989759488.0
+    },
+    {
+      "vram_bytes": 70224314368.0,
+      "utilization": 84.0,
+      "power_watts": 335.044,
+      "temperature_c": 64.0,
+      "timestamp": 1793241381.471484,
+      "ram_bytes": 124979818496.0
+    },
+    {
+      "vram_bytes": 70224314368.0,
+      "utilization": 100.0,
+      "power_watts": 400.973,
+      "temperature_c": 69.0,
+      "timestamp": 1793241381.9723866,
+      "ram_bytes": 124979011584.0
+    },
+    {
+      "vram_bytes": 70224314368.0,
+      "utilization": 100.0,
+      "power_watts": 606.022,
+      "temperature_c": 68.0,
+      "timestamp": 1793241382.4738224,
+      "ram_bytes": 124979011584.0
+    },
+    {
+      "vram_bytes": 70392086528.0,
+      "utilization": 100.0,
+      "power_watts": 600.562,
+      "temperature_c": 68.0,
+      "timestamp": 1793241382.9751277,
+      "ram_bytes": 124978679808.0
+    },
+    {
+      "vram_bytes": 70392086528.0,
+      "utilization": 100.0,
+      "power_watts": 604.978,
+      "temperature_c": 70.0,
+      "timestamp": 1793241383.476728,
+      "ram_bytes": 124978679808.0
+    },
+    {
+      "vram_bytes": 70392086528.0,
+      "utilization": 100.0,
+      "power_watts": 605.691,
+      "temperature_c": 69.0,
+      "timestamp": 1793241383.9775388,
+      "ram_bytes": 124978479104.0
+    },
+    {
+      "vram_bytes": 70425640960.0,
+      "utilization": 100.0,
+      "power_watts": 601.853,
+      "temperature_c": 70.0,
+      "timestamp": 1793241384.4811058,
+      "ram_bytes": 124978667520.0
+    },
+    {
+      "vram_bytes": 70425640960.0,
+      "utilization": 100.0,
+      "power_watts": 594.4,
+      "temperature_c": 69.0,
+      "timestamp": 1793241384.9829555,
+      "ram_bytes": 124978675712.0
+    },
+    {
+      "vram_bytes": 70425640960.0,
+      "utilization": 100.0,
+      "power_watts": 592.91,
+      "temperature_c": 69.0,
+      "timestamp": 1793241385.4846938,
+      "ram_bytes": 124978675712.0
+    },
+    {
+      "vram_bytes": 70425640960.0,
+      "utilization": 100.0,
+      "power_watts": 602.654,
+      "temperature_c": 71.0,
+      "timestamp": 1793241385.9855049,
+      "ram_bytes": 124978520064.0
+    },
+    {
+      "vram_bytes": 68454318080.0,
+      "utilization": 66.0,
+      "power_watts": 562.24,
+      "temperature_c": 64.0,
+      "timestamp": 1793241386.4870763,
+      "ram_bytes": 124984012800.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 338.962,
+      "temperature_c": 57.0,
+      "timestamp": 1793241386.9884737,
+      "ram_bytes": 124296626176.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 108.664,
+      "temperature_c": 56.0,
+      "timestamp": 1793241387.4895098,
+      "ram_bytes": 123615109120.0
+    },
+    {
+      "vram_bytes": 71641989120.0,
+      "utilization": 0.0,
+      "power_watts": 93.723,
+      "temperature_c": 56.0,
+      "timestamp": 1793241387.9904394,
+      "ram_bytes": 124920147968.0
+    },
+    {
+      "vram_bytes": 71641989120.0,
+      "utilization": 99.0,
+      "power_watts": 277.494,
+      "temperature_c": 66.0,
+      "timestamp": 1793241388.4917483,
+      "ram_bytes": 124918149120.0
+    },
+    {
+      "vram_bytes": 71641989120.0,
+      "utilization": 0.0,
+      "power_watts": 252.884,
+      "temperature_c": 56.0,
+      "timestamp": 1793241388.9928658,
+      "ram_bytes": 123668705280.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 99.0,
+      "power_watts": 209.025,
+      "temperature_c": 65.0,
+      "timestamp": 1793241389.4931464,
+      "ram_bytes": 123507646464.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 98.0,
+      "power_watts": 321.669,
+      "temperature_c": 60.0,
+      "timestamp": 1793241389.9945476,
+      "ram_bytes": 123537457152.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 98.0,
+      "power_watts": 371.008,
+      "temperature_c": 66.0,
+      "timestamp": 1793241390.4957554,
+      "ram_bytes": 123507056640.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 1.0,
+      "power_watts": 287.573,
+      "temperature_c": 64.0,
+      "timestamp": 1793241390.9964814,
+      "ram_bytes": 123405963264.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 95.0,
+      "power_watts": 300.739,
+      "temperature_c": 64.0,
+      "timestamp": 1793241391.497914,
+      "ram_bytes": 123358547968.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 7.0,
+      "power_watts": 318.393,
+      "temperature_c": 65.0,
+      "timestamp": 1793241391.9981222,
+      "ram_bytes": 123355062272.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 98.0,
+      "power_watts": 332.487,
+      "temperature_c": 65.0,
+      "timestamp": 1793241392.4998195,
+      "ram_bytes": 123330752512.0
+    },
+    {
+      "vram_bytes": 72078196736.0,
+      "utilization": 99.0,
+      "power_watts": 357.568,
+      "temperature_c": 59.0,
+      "timestamp": 1793241393.000864,
+      "ram_bytes": 123630800896.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 99.0,
+      "power_watts": 325.202,
+      "temperature_c": 66.0,
+      "timestamp": 1793241393.501768,
+      "ram_bytes": 123503927296.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 78.0,
+      "power_watts": 281.566,
+      "temperature_c": 58.0,
+      "timestamp": 1793241394.003045,
+      "ram_bytes": 123509805056.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 99.0,
+      "power_watts": 345.449,
+      "temperature_c": 66.0,
+      "timestamp": 1793241394.5050228,
+      "ram_bytes": 123504570368.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 3.0,
+      "power_watts": 271.874,
+      "temperature_c": 65.0,
+      "timestamp": 1793241395.0066268,
+      "ram_bytes": 123406471168.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 93.0,
+      "power_watts": 306.92,
+      "temperature_c": 65.0,
+      "timestamp": 1793241395.507237,
+      "ram_bytes": 123357687808.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 3.0,
+      "power_watts": 318.636,
+      "temperature_c": 65.0,
+      "timestamp": 1793241396.0088806,
+      "ram_bytes": 123356622848.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 12.0,
+      "power_watts": 280.318,
+      "temperature_c": 59.0,
+      "timestamp": 1793241396.5093362,
+      "ram_bytes": 123266891776.0
+    },
+    {
+      "vram_bytes": 72111751168.0,
+      "utilization": 34.0,
+      "power_watts": 183.408,
+      "temperature_c": 58.0,
+      "timestamp": 1793241397.0858872,
+      "ram_bytes": 123039121408.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 140.816,
+      "temperature_c": 56.0,
+      "timestamp": 1793241397.5864666,
+      "ram_bytes": 122829066240.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 93.484,
+      "temperature_c": 56.0,
+      "timestamp": 1793241398.0878398,
+      "ram_bytes": 122828992512.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 92.463,
+      "temperature_c": 56.0,
+      "timestamp": 1793241398.5885897,
+      "ram_bytes": 122827350016.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 92.463,
+      "temperature_c": 56.0,
+      "timestamp": 1793241399.0900643,
+      "ram_bytes": 122826620928.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 91.88,
+      "temperature_c": 55.0,
+      "timestamp": 1793241399.5904355,
+      "ram_bytes": 122824744960.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 91.88,
+      "temperature_c": 55.0,
+      "timestamp": 1793241400.092095,
+      "ram_bytes": 122826874880.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 91.501,
+      "temperature_c": 54.0,
+      "timestamp": 1793241400.593634,
+      "ram_bytes": 122826997760.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 91.501,
+      "temperature_c": 54.0,
+      "timestamp": 1793241401.0942497,
+      "ram_bytes": 122827255808.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 91.229,
+      "temperature_c": 54.0,
+      "timestamp": 1793241401.595663,
+      "ram_bytes": 122828038144.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 91.229,
+      "temperature_c": 54.0,
+      "timestamp": 1793241402.0970643,
+      "ram_bytes": 122828066816.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 90.737,
+      "temperature_c": 53.0,
+      "timestamp": 1793241402.5974324,
+      "ram_bytes": 122828115968.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 90.737,
+      "temperature_c": 53.0,
+      "timestamp": 1793241403.0990121,
+      "ram_bytes": 122828382208.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.916,
+      "temperature_c": 53.0,
+      "timestamp": 1793241403.599428,
+      "ram_bytes": 122830192640.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.916,
+      "temperature_c": 53.0,
+      "timestamp": 1793241404.1010296,
+      "ram_bytes": 122827898880.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.675,
+      "temperature_c": 53.0,
+      "timestamp": 1793241404.6011653,
+      "ram_bytes": 122827706368.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.675,
+      "temperature_c": 53.0,
+      "timestamp": 1793241405.1025689,
+      "ram_bytes": 122827964416.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.916,
+      "temperature_c": 52.0,
+      "timestamp": 1793241405.6039968,
+      "ram_bytes": 122827923456.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.916,
+      "temperature_c": 52.0,
+      "timestamp": 1793241406.1042933,
+      "ram_bytes": 122827522048.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.725,
+      "temperature_c": 52.0,
+      "timestamp": 1793241406.605817,
+      "ram_bytes": 122827485184.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 89.725,
+      "temperature_c": 52.0,
+      "timestamp": 1793241407.1068175,
+      "ram_bytes": 122825019392.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.988,
+      "temperature_c": 51.0,
+      "timestamp": 1793241407.6079268,
+      "ram_bytes": 121520459776.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.988,
+      "temperature_c": 51.0,
+      "timestamp": 1793241408.1090975,
+      "ram_bytes": 121599016960.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.985,
+      "temperature_c": 51.0,
+      "timestamp": 1793241408.610594,
+      "ram_bytes": 122025725952.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.985,
+      "temperature_c": 51.0,
+      "timestamp": 1793241409.1120834,
+      "ram_bytes": 122066558976.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.472,
+      "temperature_c": 51.0,
+      "timestamp": 1793241409.6132889,
+      "ram_bytes": 122069037056.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.472,
+      "temperature_c": 51.0,
+      "timestamp": 1793241410.1150088,
+      "ram_bytes": 121640427520.0
+    },
+    {
+      "vram_bytes": 68219437056.0,
+      "utilization": 0.0,
+      "power_watts": 88.394,
+      "temperature_c": 51.0,
+      "timestamp": 1793241410.6166635,
+      "ram_bytes": 121614209024.0
+    }
+  ],
+  "oom_detected": false,
+  "vram_bytes_peak": 72111751168.0,
+  "vram_bytes_mean": 56786575658.9781,
+  "ram_bytes_peak": 124999864320.0,
+  "ram_bytes_mean": 124196458226.91971,
+  "utilization_peak": 100.0,
+  "utilization_mean": 24.613138686131386,
+  "power_watts_peak": 606.022,
+  "power_watts_mean": 183.88337956204379,
+  "temperature_c_peak": 71.0,
+  "temperature_c_mean": 57.67883211678832
+}
