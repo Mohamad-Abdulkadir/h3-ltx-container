@@ -94,7 +94,7 @@ class Uploads:
                         "GET",
                         destination,
                         headers={"Host": host},
-                        extensions={"sni_hostname": host.encode()},
+                        extensions={"sni_hostname": host},
                     ) as response:
                         if response.is_redirect:
                             url = urljoin(url, response.headers["location"])

@@ -102,3 +102,48 @@ def test_real_ffmpeg_metadata(tmp_path):
     assert len(result["sha256"]) == 64
     assert (tmp_path / "thumbnail.jpg").is_file()
     assert (tmp_path / "contact-sheet.jpg").is_file()
+
+
+async def test_url_upload_pins_ip_and_tls_hostname(tmp_path, monkeypatch):
+    import h3ltx.uploads as module
+
+    seen = []
+    checked = []
+    real_client = httpx.AsyncClient
+
+    def resolve(url):
+        checked.append(url)
+        return (
+            ("first.test", "93.184.216.34")
+            if len(checked) == 1
+            else ("second.test", "93.184.216.35")
+        )
+
+    def handler(request):
+        seen.append(request)
+        assert isinstance(request.extensions["sni_hostname"], str)
+        if len(seen) == 1:
+            return httpx.Response(302, headers={"Location": "https://second.test/image"})
+        return httpx.Response(200, content=b"image")
+
+    monkeypatch.setattr(module, "public_url", resolve)
+    monkeypatch.setattr(
+        module.httpx,
+        "AsyncClient",
+        lambda **kw: real_client(transport=httpx.MockTransport(handler)),
+    )
+    monkeypatch.setattr(
+        module,
+        "probe",
+        lambda path: {
+            "streams": [{"codec_type": "video", "codec_name": "png"}],
+            "format": {"duration": "0"},
+        },
+    )
+    result = await module.Uploads(tmp_path, 100).from_url("https://first.test/image")
+    assert result["bytes"] == 5 and result["media_type"] == "image"
+    assert len(checked) == 2
+    assert seen[0].url.host == "93.184.216.34" and seen[0].headers["Host"] == "first.test"
+    assert (
+        seen[1].url.host == "93.184.216.35" and seen[1].extensions["sni_hostname"] == "second.test"
+    )
